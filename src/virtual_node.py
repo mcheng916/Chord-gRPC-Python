@@ -77,6 +77,14 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             find_resp = stub.find_successor(find_request)
             return find_resp
 
+    # return the successor list
+    def find_succlist(self, request, context):
+        resp = server_pb2.FindSucclistResponse()
+        for i in range(len(self.successor_list)):
+            resp.id_list.append(self.successor_list[i][0])
+            resp.ip_list.append(self.successor_list[i][1])
+        return resp
+
     def live_predecessor(self, request, context):
         return server_pb2.PredecessorResponse(ret = server_pb2.SUCCESS)
 
