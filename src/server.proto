@@ -3,4 +3,14 @@ syntax = "proto3";
 package server;
 
 service Server {
+    rpc find_successor(FindSucRequest) returns (FindSucResponse) {}
+}
+
+message FindSucRequest {
+    int32 id = 1;
+}
+
+message FindSucResponse {
+    int32 id = 1;
+    string ip = 2;
 }

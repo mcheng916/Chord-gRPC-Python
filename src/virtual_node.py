@@ -2,10 +2,12 @@ import json
 import logging
 import os
 import server_pb2_grpc
+import server_pb2
+import grpc
 
 # This class represents a virtual node
 class Virtual_node(server_pb2_grpc.ServerServicer):
-    def __init__(self, local_addr, remote_addr):
+    def __init__(self, local_addr, remote_addr, id):
         # Read configuration from json file
         config = json.load(open("config.json"))
         self.LOG_SIZE = config["log_size"]
@@ -19,6 +21,13 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
 
         self.local_addr = local_addr
         self.remote_addr = remote_addr
+        self.id = id
+
+        self.finger = [[None, None] for _ in range(self.LOG_SIZE)]
+        self.successor_list = [[None, None] for _ in range(self.SUCCESSOR_NUM)]
+        self.predecessor = [None, None]
+
+
 
         # Set up Logger
         # create logger with 'chord'
@@ -28,8 +37,8 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         formatter = logging.Formatter('[%(asctime)s,%(msecs)d %(levelname)s]: %(message)s',
                                       datefmt='%M:%S')
         # create file handler which logs even debug messages
-        os.makedirs(os.path.dirname('log/logger-%d.txt' % self.local_addr), exist_ok=True)
-        fh = logging.FileHandler('log/logger-%d.txt' % self.local_addr)
+        os.makedirs(os.path.dirname('log/logger-%d.txt' % self.id), exist_ok=True)
+        fh = logging.FileHandler('log/logger-%d.txt' % self.id)
         fh.setLevel(logging.INFO)
         fh.setFormatter(formatter)
         self.logger.addHandler(fh)
@@ -39,10 +48,53 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         ch.setFormatter(formatter)
         self.logger.addHandler(ch)
 
+    # search the local table for the highest predecessor of id
+    def closest_preceding_node(self, id):
+        i = self.LOG_SIZE - 1
+        while i >= 0:
+            if self.finger[i][0] > self.id and self.finger[i][0] < id:
+                return self.finger[i]
+            i -= 1
+        return [self.id, self.local_addr]
+
+    # ask node n to find the successor of id
+    def find_successor(self, request, context):
+        # There is bug in paper algorithm, need to add boundary judgement
+        if id == self.id:
+            return server_pb2.FindSucResponse(id = id, ip = self.local_addr)
+        if id > self.id and id <= self.successor_list[0][0]:
+            return server_pb2.FindSucResponse(id = self.successor_list[0][0], ip = self.successor_list[0][1])
+        else:
+            n_next = self.closest_preceding_node(id)
+            find_request = server_pb2.FindSucRequest(id = n_next[0])
+            channel = grpc.insecure_channel(n_next[1])
+            stub = server_pb2_grpc.ServerStub(channel)
+            find_resp = stub.find_successor(find_request)
+            return find_resp
+
+    # create a new Chord ring
+    def create(self):
+        self.predecessor = None
+        self.successor_list[0] = [self.id, self.local_addr]
+
+    # join a Chord ring containing node id
+    def join(self, id, ip):
+        pass
+
+    # called periodically. verifies n's immediate successor, and tells the successor about n.
+    def stabilize(self):
+        pass
+
+    def notify(self, id, ip):
+        pass
+
+    def fix_finger(self):
+        pass
+        
     def run(self):
         pass
 
         
 
 if __name__ == "__main__":
-    virtual_node = Virtual_node("127.0.0.1:7000", "127.0.0.1:7000")
+    virtual_node = Virtual_node("127.0.0.1:7000", "127.0.0.1:7000", 0)
