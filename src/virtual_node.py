@@ -27,12 +27,11 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         self.remote_addr = remote_addr
         self.id = id
 
+        # [server id, server IP]
         self.finger = [[None, None] for _ in range(self.LOG_SIZE)]
         self.successor_list = [[None, None] for _ in range(self.SUCCESSOR_NUM)]
         self.predecessor = [None, None]
         self.next = 0
-
-
 
         # Set up Logger
         # create logger with 'chord'
@@ -44,7 +43,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         # create file handler which logs even debug messages
         os.makedirs(os.path.dirname('log/logger-%d.txt' % self.id), exist_ok=True)
         fh = logging.FileHandler('log/logger-%d.txt' % self.id)
-        fh.setLevel(logging.INFO)
+        fh.setLevel(logging.DEBUG)
         fh.setFormatter(formatter)
         self.logger.addHandler(fh)
         # create console handler with a higher log level
@@ -53,11 +52,18 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         ch.setFormatter(formatter)
         self.logger.addHandler(ch)
 
+    def between(self, n1, n2, n3):
+        if n1 < n3:
+            return n1 < n2 < n3
+        else:
+            return n1 < n2 or n2 < n3
+
     # search the local table for the highest predecessor of id
     def closest_preceding_node(self, id):
         i = self.LOG_SIZE - 1
         while i >= 0:
-            if self.finger[i][0] > self.id and self.finger[i][0] < id:
+            # mcip: searching for predecessor such as for ex: between (40, 5)
+            if self.between(self.id, self.finger[i][0], id):
                 return self.finger[i]
             i -= 1
         return [self.id, self.local_addr]
@@ -91,7 +97,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
 
     # called periodically. verifies n's immediate successor, and tells the successor about n.
     def stabilize(self):
-        print("Stabilize")
+        self.logger.debug("[Stabilize]")
         threading.Timer(self.STABLE_PERIOD / 1000.0, self.stabilize).start()
 
     def notify(self, id, ip):
@@ -109,14 +115,14 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             find_resp = stub.find_successor(find_request)
             self.finger[self.next][0] = find_resp.id
             self.finger[self.next][1] = find_resp.ip
-            print("Fix finger index ", self.next)
+            self.logger.debug("[Finger]: Fix finger index ", self.next)
         except Exception:
-            print("Can't fix finger index ", self.next)
+            self.logger.debug("[Finger]: Can't fix finger index ", self.next)
         threading.Timer(self.FIXFINGER_PERIOD / 1000.0, self.fix_finger).start()
 
     # call periodically. checks whether predecessor has failed
     def check_predecessor(self):
-        print("Check predecessor")
+        self.logger.debug("Check predecessor")
         if self.predecessor[1] != None:
             try:
                 check_request = server_pb2.PredecessorRequest(id = self.id)
