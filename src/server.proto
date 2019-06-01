@@ -4,6 +4,12 @@ package server;
 
 service Server {
     rpc find_successor(FindSucRequest) returns (FindSucResponse) {}
+    rpc live_predecessor(PredecessorRequest) returns (PredecessorResponse) {}
+}
+
+enum ReturnCode {
+    SUCCESS = 0;
+    FAILURE = 1;
 }
 
 message FindSucRequest {
@@ -13,4 +19,11 @@ message FindSucRequest {
 message FindSucResponse {
     int32 id = 1;
     string ip = 2;
+}
+message PredecessorRequest {
+    int32 id = 1;
+}
+
+message PredecessorResponse {
+    ReturnCode ret = 1;
 }

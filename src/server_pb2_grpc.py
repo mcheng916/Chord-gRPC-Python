@@ -19,6 +19,11 @@ class ServerStub(object):
         request_serializer=server__pb2.FindSucRequest.SerializeToString,
         response_deserializer=server__pb2.FindSucResponse.FromString,
         )
+    self.live_predecessor = channel.unary_unary(
+        '/server.Server/live_predecessor',
+        request_serializer=server__pb2.PredecessorRequest.SerializeToString,
+        response_deserializer=server__pb2.PredecessorResponse.FromString,
+        )
 
 
 class ServerServicer(object):
@@ -32,6 +37,13 @@ class ServerServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def live_predecessor(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_ServerServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -39,6 +51,11 @@ def add_ServerServicer_to_server(servicer, server):
           servicer.find_successor,
           request_deserializer=server__pb2.FindSucRequest.FromString,
           response_serializer=server__pb2.FindSucResponse.SerializeToString,
+      ),
+      'live_predecessor': grpc.unary_unary_rpc_method_handler(
+          servicer.live_predecessor,
+          request_deserializer=server__pb2.PredecessorRequest.FromString,
+          response_serializer=server__pb2.PredecessorResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
