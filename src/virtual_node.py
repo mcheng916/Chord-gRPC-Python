@@ -63,7 +63,9 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         i = self.LOG_SIZE - 1
         while i >= 0:
             # mcip: searching for predecessor such as for ex: between (40, 5)
-            if self.between(self.id, self.finger[i][0], id):
+            # if self.id < self.finger[i][0] < id or (self.finger[i][0] > self.id > id) or \
+            #         (self.id > id > self.finger[i][0]):
+            if self.between(self.id, self.finger[i][0], id) and self.id != id:
                 return self.finger[i]
             i -= 1
         return [self.id, self.local_addr]
@@ -71,17 +73,20 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
     # ask node n to find the successor of id
     def find_successor(self, request, context):
         # There is bug in paper algorithm, need to add boundary judgement
-        if request.id == self.id:
-            return server_pb2.FindSucResponse(id = request.id, ip = self.local_addr)
-        if request.id > self.id and request.id <= self.successor_list[0][0]:
-            return server_pb2.FindSucResponse(id = self.successor_list[0][0], ip = self.successor_list[0][1])
+        # if request.id == self.id:
+        #     return server_pb2.FindSucResponse(id = request.id, ip = self.local_addr)
+        # if request.id > self.id and request.id <= self.successor_list[0][0]:
+        #     return server_pb2.FindSucResponse(id = self.successor_list[0][0], ip = self.successor_list[0][1])
+        if request.id == self.successor_list[0][0] or (self.between(self.id, request.id, self.successor_list[0][0]) and
+                                                       self.id != self.successor_list[0][0]):
+            return server_pb2.FindSucResponse(id=request.id, ip=self.local_addr)
         else:
             n_next = self.closest_preceding_node(request.id)
-            find_request = server_pb2.FindSucRequest(id = n_next[0])
+            find_request = server_pb2.FindSucRequest(id=n_next[0])
             channel = grpc.insecure_channel(n_next[1])
             stub = server_pb2_grpc.ServerStub(channel)
             find_resp = stub.find_successor(find_request)
-            return find_resp
+            return find_resp  # TODO: might need to check this line
 
     def live_predecessor(self, request, context):
         return server_pb2.PredecessorResponse(ret = server_pb2.SUCCESS)
