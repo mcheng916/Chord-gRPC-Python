@@ -77,7 +77,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             return server_pb2.FindSucResponse(id = self.successor_list[0][0], ip = self.successor_list[0][1])
         else:
             n_next = self.closest_preceding_node(request.id)
-            find_request = server_pb2.FindSucRequest(id = n_next[0])
+            find_request = server_pb2.FindSucRequest(id = request.id)
             channel = grpc.insecure_channel(n_next[1])
             stub = server_pb2_grpc.ServerStub(channel)
             find_resp = stub.find_successor(find_request)
@@ -101,7 +101,21 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
 
     # join a Chord ring containing node id
     def join(self, id, ip):
-        pass
+        self.predecessor = None
+        find_request = server_pb2.FindSucRequest(id = self.id)
+        channel = grpc.insecure_channel(ip)
+        stub = server_pb2_grpc.ServerStub(channel)
+        find_resp = stub.find_successor(find_request, timeout = 0.2)
+        self.successor_list[0][0] = find_resp.id
+        self.successor_list[0][1] = find_resp.ip
+
+        find_request = server_pb2.EmptyRequest()
+        channel = grpc.insecure_channel(self.successor_list[0][1])
+        stub = server_pb2_grpc.ServerStub(channel)
+        find_resp = stub.find_succlist(find_request, timeout = 0.2)
+        for i in range(len(find_resp) - 1):
+            self.successor_list[i+1][0] = find_resp.id_list[i]
+            self.successor_list[i+1][1] = find_resp.ip_list[i]
 
     # called periodically. verifies n's immediate successor, and tells the successor about n.
     def stabilize(self):
@@ -123,9 +137,9 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             find_resp = stub.find_successor(find_request)
             self.finger[self.next][0] = find_resp.id
             self.finger[self.next][1] = find_resp.ip
-            self.logger.debug("[Finger]: Fix finger index ", self.next)
+            self.logger.debug(f"[Finger]: Fix finger index ", self.next)
         except Exception:
-            self.logger.debug("[Finger]: Can't fix finger index ", self.next)
+            self.logger.debug(f"[Finger]: Can't fix finger index ", self.next)
         threading.Timer(self.FIXFINGER_PERIOD / 1000.0, self.fix_finger).start()
 
     # call periodically. checks whether predecessor has failed
