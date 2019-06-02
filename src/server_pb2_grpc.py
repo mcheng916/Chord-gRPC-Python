@@ -29,6 +29,16 @@ class ServerStub(object):
         request_serializer=server__pb2.EmptyRequest.SerializeToString,
         response_deserializer=server__pb2.FindSucclistResponse.FromString,
         )
+    self.find_predecessor = channel.unary_unary(
+        '/server.Server/find_predecessor',
+        request_serializer=server__pb2.EmptyRequest.SerializeToString,
+        response_deserializer=server__pb2.FindPredResponse.FromString,
+        )
+    self.rectify = channel.unary_unary(
+        '/server.Server/rectify',
+        request_serializer=server__pb2.RectifyRequest.SerializeToString,
+        response_deserializer=server__pb2.EmptyResponse.FromString,
+        )
 
 
 class ServerServicer(object):
@@ -56,6 +66,20 @@ class ServerServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def find_predecessor(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def rectify(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_ServerServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -73,6 +97,16 @@ def add_ServerServicer_to_server(servicer, server):
           servicer.find_succlist,
           request_deserializer=server__pb2.EmptyRequest.FromString,
           response_serializer=server__pb2.FindSucclistResponse.SerializeToString,
+      ),
+      'find_predecessor': grpc.unary_unary_rpc_method_handler(
+          servicer.find_predecessor,
+          request_deserializer=server__pb2.EmptyRequest.FromString,
+          response_serializer=server__pb2.FindPredResponse.SerializeToString,
+      ),
+      'rectify': grpc.unary_unary_rpc_method_handler(
+          servicer.rectify,
+          request_deserializer=server__pb2.RectifyRequest.FromString,
+          response_serializer=server__pb2.EmptyResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
