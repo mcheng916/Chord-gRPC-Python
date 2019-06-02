@@ -193,22 +193,21 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             # threading.Timer(self.STABLE_PERIOD / 1000.0, self.stabilize).start()
 
     def rectify(self, request, context):
-        if self.predecessor[0] == None:
-            self.predecessor[0][0] = request.id
-            self.predecessor[0][1] = request.ip
+        if self.predecessor[0] is None:
+            self.predecessor[0] = request.id
+            self.predecessor[1] = request.ip
         else:
-            # query pred to see if live
-            try:
+            try:  # query pred to see if live
                 check_request = server_pb2.PredecessorRequest(id=self.id)
                 channel = grpc.insecure_channel(request.ip)
                 stub = server_pb2_grpc.ServerStub(channel)
                 stub.live_predecessor(check_request, timeout=self.GLOBAL_TIMEOUT)
-                if self.between(self.predecessor[0][0], request.id, self.id):
-                    self.predecessor[0][0] = request.id
-                    self.predecessor[0][1] = request.ip
+                if self.between(self.predecessor[0], request.id, self.id):
+                    self.predecessor[0] = request.id
+                    self.predecessor[1] = request.ip
             except Exception:
-                self.predecessor[0][0] = request.id
-                self.predecessor[0][1] = request.ip
+                self.predecessor[0] = request.id
+                self.predecessor[1] = request.ip
 
     # called periodically. refreshes finger table entries. next stores the index of the next finger to fix.
     def fix_finger(self):
