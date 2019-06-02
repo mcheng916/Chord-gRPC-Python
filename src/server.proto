@@ -8,6 +8,10 @@ service Server {
     rpc find_succlist(EmptyRequest) returns (FindSucclistResponse) {}
     rpc find_predecessor(EmptyRequest) returns (FindPredResponse) {}
     rpc rectify(RectifyRequest) returns (EmptyResponse) {}
+    //defined by ourselves
+    rpc replicate_entries(ReplicateRequest) returns (ReplicateResponse){}
+    rpc get(GetRequest) returns (GetResponse) {}
+    rpc put(PutRequest) returns (PutResponse) {}
 }
 
 enum ReturnCode {
@@ -53,4 +57,40 @@ message PredecessorRequest {
 
 message PredecessorResponse {
     ReturnCode ret = 1;
+}
+
+//hash result of the
+message LogEntry {
+    int32 hashID = 1;
+    string key = 2;
+    string val = 3;
+}
+
+message ReplicateRequest{
+    repeated LogEntry entries = 1;
+}
+
+message ReplicateResponse{
+    ReturnCode ret = 1;
+}
+
+message GetRequest {
+    string key = 1;
+}
+
+message GetResponse {
+    string response = 1;
+    int32 nodeID = 2;
+    string nodeIP = 3;
+}
+
+message PutRequest {
+    string key = 1;
+    string value = 2;
+}
+
+message PutResponse {
+    ReturnCode ret = 1;
+    int32 nodeID = 2;
+    string nodeIP = 3;
 }

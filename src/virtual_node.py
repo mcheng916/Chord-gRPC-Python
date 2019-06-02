@@ -255,6 +255,30 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             #         self.predecessor[1] = None
             # threading.Timer(self.CHECKPRE_PERIOD / 1000.0, self.check_predecessor).start()
 
+    def replicate_entries(self, request, context):
+        pass
+
+
+    def send_replicate_entries(self, req):
+        for suc in self.successor_list:
+            send_thread = threading.Thread(target=thread_send_replicate, args=(suc[0], suc[1], req,))
+            send_thread.start()
+
+    def thread_send_replicate(self, id, ip, req):
+        try:
+            channel = grpc.insecure_channel(ip)
+            grpc.channel_ready_future(channel).result()
+            stub = server_pb2_grpc.ServerStub(channel)
+            replicate_resp = stub.replicate_entries(req, timeout=self.GLOBAL_TIMEOUT)
+            if not replicate_resp.SUCCESS:
+                self.stabilize_cond.notify()
+            else:
+                return
+        except Exception as e:
+            pass
+
+
+
     def run(self):
         if self.remote_addr == None:
             self.create()
