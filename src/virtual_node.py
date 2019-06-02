@@ -24,6 +24,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         self.CHECKPRE_PERIOD = config["checkpre_period"]
         # print("LOG_SIZE:\t", self.LOG_SIZE, "\nSIZE:\t\t", self.SIZE, "\nREP_NUM:\t", self.REP_NUM)
         self.GLOBAL_TIMEOUT = 0.2
+        self.JOIN_RETRY_PERIOD = 0.1
 
         self.local_addr = local_addr
         self.remote_addr = remote_addr
@@ -136,6 +137,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                 break
             except Exception as e:
                 self.logger.error(f'[Join]: find successor failed <{e}>')
+                time.sleep(self.JOIN_RETRY_PERIOD)
         while True:
             try:
                 find_request = server_pb2.EmptyRequest()
@@ -149,6 +151,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                 break
             except Exception as e:
                 self.logger.error(f'[Join]: find successor list failed <{e}>')
+                time.sleep(self.JOIN_RETRY_PERIOD)
 
     # called periodically. verifies n's immediate successor, and tells the successor about n.
     def stabilize(self):
