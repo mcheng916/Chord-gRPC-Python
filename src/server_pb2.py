@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='server',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0cserver.proto\x12\x06server\"\x0e\n\x0c\x45mptyRequest\"\x1c\n\x0e\x46indSucRequest\x12\n\n\x02id\x18\x01 \x01(\x05\")\n\x0f\x46indSucResponse\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ip\x18\x02 \x01(\t\".\n\x14\x46indSucclistResponse\x12\n\n\x02id\x18\x01 \x03(\x05\x12\n\n\x02ip\x18\x02 \x03(\t\" \n\x12PredecessorRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"6\n\x13PredecessorResponse\x12\x1f\n\x03ret\x18\x01 \x01(\x0e\x32\x12.server.ReturnCode*&\n\nReturnCode\x12\x0b\n\x07SUCCESS\x10\x00\x12\x0b\n\x07\x46\x41ILURE\x10\x01\x32\xe3\x01\n\x06Server\x12\x43\n\x0e\x66ind_successor\x12\x16.server.FindSucRequest\x1a\x17.server.FindSucResponse\"\x00\x12M\n\x10live_predecessor\x12\x1a.server.PredecessorRequest\x1a\x1b.server.PredecessorResponse\"\x00\x12\x45\n\rfind_succlist\x12\x14.server.EmptyRequest\x1a\x1c.server.FindSucclistResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0cserver.proto\x12\x06server\"\x0e\n\x0c\x45mptyRequest\"\x0f\n\rEmptyResponse\"(\n\x0eRectifyRequest\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ip\x18\x02 \x01(\t\"\x1c\n\x0e\x46indSucRequest\x12\n\n\x02id\x18\x01 \x01(\x05\")\n\x0f\x46indSucResponse\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ip\x18\x02 \x01(\t\"*\n\x10\x46indPredResponse\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ip\x18\x02 \x01(\t\"8\n\x14\x46indSucclistResponse\x12\x0f\n\x07id_list\x18\x01 \x03(\x05\x12\x0f\n\x07ip_list\x18\x02 \x03(\t\" \n\x12PredecessorRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"6\n\x13PredecessorResponse\x12\x1f\n\x03ret\x18\x01 \x01(\x0e\x32\x12.server.ReturnCode*&\n\nReturnCode\x12\x0b\n\x07SUCCESS\x10\x00\x12\x0b\n\x07\x46\x41ILURE\x10\x01\x32\xe5\x02\n\x06Server\x12\x43\n\x0e\x66ind_successor\x12\x16.server.FindSucRequest\x1a\x17.server.FindSucResponse\"\x00\x12M\n\x10live_predecessor\x12\x1a.server.PredecessorRequest\x1a\x1b.server.PredecessorResponse\"\x00\x12\x45\n\rfind_succlist\x12\x14.server.EmptyRequest\x1a\x1c.server.FindSucclistResponse\"\x00\x12\x44\n\x10\x66ind_predecessor\x12\x14.server.EmptyRequest\x1a\x18.server.FindPredResponse\"\x00\x12:\n\x07rectify\x12\x16.server.RectifyRequest\x1a\x15.server.EmptyResponse\"\x00\x62\x06proto3')
 )
 
 _RETURNCODE = _descriptor.EnumDescriptor(
@@ -41,8 +41,8 @@ _RETURNCODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=251,
-  serialized_end=289,
+  serialized_start=364,
+  serialized_end=402,
 )
 _sym_db.RegisterEnumDescriptor(_RETURNCODE)
 
@@ -76,6 +76,68 @@ _EMPTYREQUEST = _descriptor.Descriptor(
 )
 
 
+_EMPTYRESPONSE = _descriptor.Descriptor(
+  name='EmptyResponse',
+  full_name='server.EmptyResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=40,
+  serialized_end=55,
+)
+
+
+_RECTIFYREQUEST = _descriptor.Descriptor(
+  name='RectifyRequest',
+  full_name='server.RectifyRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='server.RectifyRequest.id', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='ip', full_name='server.RectifyRequest.ip', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=57,
+  serialized_end=97,
+)
+
+
 _FINDSUCREQUEST = _descriptor.Descriptor(
   name='FindSucRequest',
   full_name='server.FindSucRequest',
@@ -102,8 +164,8 @@ _FINDSUCREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=40,
-  serialized_end=68,
+  serialized_start=99,
+  serialized_end=127,
 )
 
 
@@ -140,8 +202,46 @@ _FINDSUCRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=70,
-  serialized_end=111,
+  serialized_start=129,
+  serialized_end=170,
+)
+
+
+_FINDPREDRESPONSE = _descriptor.Descriptor(
+  name='FindPredResponse',
+  full_name='server.FindPredResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='server.FindPredResponse.id', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='ip', full_name='server.FindPredResponse.ip', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=172,
+  serialized_end=214,
 )
 
 
@@ -153,14 +253,14 @@ _FINDSUCCLISTRESPONSE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='server.FindSucclistResponse.id', index=0,
+      name='id_list', full_name='server.FindSucclistResponse.id_list', index=0,
       number=1, type=5, cpp_type=1, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='ip', full_name='server.FindSucclistResponse.ip', index=1,
+      name='ip_list', full_name='server.FindSucclistResponse.ip_list', index=1,
       number=2, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -178,8 +278,8 @@ _FINDSUCCLISTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=113,
-  serialized_end=159,
+  serialized_start=216,
+  serialized_end=272,
 )
 
 
@@ -209,8 +309,8 @@ _PREDECESSORREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=161,
-  serialized_end=193,
+  serialized_start=274,
+  serialized_end=306,
 )
 
 
@@ -240,14 +340,17 @@ _PREDECESSORRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=195,
-  serialized_end=249,
+  serialized_start=308,
+  serialized_end=362,
 )
 
 _PREDECESSORRESPONSE.fields_by_name['ret'].enum_type = _RETURNCODE
 DESCRIPTOR.message_types_by_name['EmptyRequest'] = _EMPTYREQUEST
+DESCRIPTOR.message_types_by_name['EmptyResponse'] = _EMPTYRESPONSE
+DESCRIPTOR.message_types_by_name['RectifyRequest'] = _RECTIFYREQUEST
 DESCRIPTOR.message_types_by_name['FindSucRequest'] = _FINDSUCREQUEST
 DESCRIPTOR.message_types_by_name['FindSucResponse'] = _FINDSUCRESPONSE
+DESCRIPTOR.message_types_by_name['FindPredResponse'] = _FINDPREDRESPONSE
 DESCRIPTOR.message_types_by_name['FindSucclistResponse'] = _FINDSUCCLISTRESPONSE
 DESCRIPTOR.message_types_by_name['PredecessorRequest'] = _PREDECESSORREQUEST
 DESCRIPTOR.message_types_by_name['PredecessorResponse'] = _PREDECESSORRESPONSE
@@ -260,6 +363,20 @@ EmptyRequest = _reflection.GeneratedProtocolMessageType('EmptyRequest', (_messag
   # @@protoc_insertion_point(class_scope:server.EmptyRequest)
   ))
 _sym_db.RegisterMessage(EmptyRequest)
+
+EmptyResponse = _reflection.GeneratedProtocolMessageType('EmptyResponse', (_message.Message,), dict(
+  DESCRIPTOR = _EMPTYRESPONSE,
+  __module__ = 'server_pb2'
+  # @@protoc_insertion_point(class_scope:server.EmptyResponse)
+  ))
+_sym_db.RegisterMessage(EmptyResponse)
+
+RectifyRequest = _reflection.GeneratedProtocolMessageType('RectifyRequest', (_message.Message,), dict(
+  DESCRIPTOR = _RECTIFYREQUEST,
+  __module__ = 'server_pb2'
+  # @@protoc_insertion_point(class_scope:server.RectifyRequest)
+  ))
+_sym_db.RegisterMessage(RectifyRequest)
 
 FindSucRequest = _reflection.GeneratedProtocolMessageType('FindSucRequest', (_message.Message,), dict(
   DESCRIPTOR = _FINDSUCREQUEST,
@@ -274,6 +391,13 @@ FindSucResponse = _reflection.GeneratedProtocolMessageType('FindSucResponse', (_
   # @@protoc_insertion_point(class_scope:server.FindSucResponse)
   ))
 _sym_db.RegisterMessage(FindSucResponse)
+
+FindPredResponse = _reflection.GeneratedProtocolMessageType('FindPredResponse', (_message.Message,), dict(
+  DESCRIPTOR = _FINDPREDRESPONSE,
+  __module__ = 'server_pb2'
+  # @@protoc_insertion_point(class_scope:server.FindPredResponse)
+  ))
+_sym_db.RegisterMessage(FindPredResponse)
 
 FindSucclistResponse = _reflection.GeneratedProtocolMessageType('FindSucclistResponse', (_message.Message,), dict(
   DESCRIPTOR = _FINDSUCCLISTRESPONSE,
@@ -304,8 +428,8 @@ _SERVER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=292,
-  serialized_end=519,
+  serialized_start=405,
+  serialized_end=762,
   methods=[
   _descriptor.MethodDescriptor(
     name='find_successor',
@@ -332,6 +456,24 @@ _SERVER = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_EMPTYREQUEST,
     output_type=_FINDSUCCLISTRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='find_predecessor',
+    full_name='server.Server.find_predecessor',
+    index=3,
+    containing_service=None,
+    input_type=_EMPTYREQUEST,
+    output_type=_FINDPREDRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='rectify',
+    full_name='server.Server.rectify',
+    index=4,
+    containing_service=None,
+    input_type=_RECTIFYREQUEST,
+    output_type=_EMPTYRESPONSE,
     serialized_options=None,
   ),
 ])

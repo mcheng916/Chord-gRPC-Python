@@ -6,6 +6,8 @@ service Server {
     rpc find_successor(FindSucRequest) returns (FindSucResponse) {}
     rpc live_predecessor(PredecessorRequest) returns (PredecessorResponse) {}
     rpc find_succlist(EmptyRequest) returns (FindSucclistResponse) {}
+    rpc find_predecessor(EmptyRequest) returns (FindPredResponse) {}
+    rpc rectify(RectifyRequest) returns (EmptyResponse) {}
 }
 
 enum ReturnCode {
@@ -17,11 +19,25 @@ message EmptyRequest {
 
 }
 
+message EmptyResponse {
+
+}
+
+message RectifyRequest {
+    int32 id = 1;
+    string ip = 2;
+}
+
 message FindSucRequest {
     int32 id = 1;
 }
 
 message FindSucResponse {
+    int32 id = 1;
+    string ip = 2;
+}
+
+message FindPredResponse {
     int32 id = 1;
     string ip = 2;
 }
