@@ -37,6 +37,8 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
 
         self.fix_finger_cond = Condition()
         self.check_pred_cond = Condition()
+        self.stabilize_cond = Condition()
+
 
         # Set up Logger
         # create logger with 'chord'
@@ -79,13 +81,16 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
     def find_successor(self, request, context):
         # Diff from Chord: Left boundary is also needed
         if request.id == self.id:
-            return server_pb2.FindSucResponse(id=request.id, ip=self.local_addr)
+            return server_pb2.FindSucResponse(id=self.id, ip=self.local_addr)
         # if request.id > self.id and request.id <= self.successor_list[0][0]:
         #     return server_pb2.FindSucResponse(id = self.successor_list[0][0], ip = self.successor_list[0][1])
         if request.id == self.successor_list[0][0] or (self.between(self.id, request.id, self.successor_list[0][0]) and
                                                        self.id != self.successor_list[0][0]):
-            return server_pb2.FindSucResponse(id=request.id, ip=self.local_addr)
+            return server_pb2.FindSucResponse(id=self.successor_list[0][0], ip=self.successor_list[0][1])
+        # Recursively find the successor
         else:
+            # Assume not all r successors fail simultaneously
+
             n_next = self.closest_preceding_node(request.id)
             find_request = server_pb2.FindSucRequest(id=n_next[0])
             channel = grpc.insecure_channel(n_next[1])
@@ -103,6 +108,8 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
     # return the successor list
     def find_succlist(self, request, context):
         resp = server_pb2.FindSucclistResponse()
+        # TODO: is this correct?
+        # How to assign repeated field, https://stackoverflow.com/questions/23726335/how-to-assign-to-repeated-field
         for i in range(len(self.successor_list)):
             resp.id_list.append(self.successor_list[i][0])
             resp.ip_list.append(self.successor_list[i][1])
@@ -118,26 +125,37 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
 
     # join a Chord ring containing node id
     def join(self, id, ip):
-        self.predecessor = None
-        find_request = server_pb2.FindSucRequest(id=self.id)
-        channel = grpc.insecure_channel(ip)
-        stub = server_pb2_grpc.ServerStub(channel)
-        find_resp = stub.find_successor(find_request, timeout = 0.2)
-        self.successor_list[0][0] = find_resp.id
-        self.successor_list[0][1] = find_resp.ip
-
-        find_request = server_pb2.EmptyRequest()
-        channel = grpc.insecure_channel(self.successor_list[0][1])
-        stub = server_pb2_grpc.ServerStub(channel)
-        find_resp = stub.find_succlist(find_request, timeout = 0.2)
-        for i in range(len(find_resp) - 1):
-            self.successor_list[i+1][0] = find_resp.id_list[i]
-            self.successor_list[i+1][1] = find_resp.ip_list[i]
+        while True:
+            try:
+                find_request = server_pb2.FindSucRequest(id=self.id)
+                channel = grpc.insecure_channel(ip)
+                stub = server_pb2_grpc.ServerStub(channel)
+                find_resp = stub.find_successor(find_request, timeout=self.GLOBAL_TIMEOUT)
+                self.successor_list[0][0] = find_resp.id
+                self.successor_list[0][1] = find_resp.ip
+                break
+            except Exception as e:
+                self.logger.error(f'[Join]: find successor failed <{e}>')
+        while True:
+            try:
+                find_request = server_pb2.EmptyRequest()
+                channel = grpc.insecure_channel(self.successor_list[0][1])
+                stub = server_pb2_grpc.ServerStub(channel)
+                find_resp = stub.find_succlist(find_request, timeout=self.GLOBAL_TIMEOUT)
+                for i in range(len(find_resp) - 1):
+                    self.successor_list[i+1][0] = find_resp.id_list[i]
+                    self.successor_list[i+1][1] = find_resp.ip_list[i]
+                self.predecessor = [None, None]
+                break
+            except Exception as e:
+                self.logger.error(f'[Join]: find successor list failed <{e}>')
 
     # called periodically. verifies n's immediate successor, and tells the successor about n.
     def stabilize(self):
         self.logger.debug("[Stabilize]")
-        threading.Timer(self.STABLE_PERIOD / 1000.0, self.stabilize).start()
+        # threading.Timer(self.STABLE_PERIOD / 1000.0, self.stabilize).start()
+        with self.stabilize_cond:
+            self.stabilize_cond.wait(self.STABLE_PERIOD / 1000.0)
 
     def notify(self, id, ip):
         pass
@@ -194,9 +212,15 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         else:
             self.join(self.id, self.remote_addr)
         # Call periodical functions
-        self.stabilize()
-        self.fix_finger()
-        self.check_predecessor()
+        find_successor_th = threading.Thread(target=self.find_successor, args=())
+        find_successor_th.start()
+        check_pred_th = threading.Thread(target=self.check_predecessor, args=())
+        check_pred_th.start()
+        stabilize_th = threading.Thread(target=self.stabilize, args=())
+        stabilize_th.start()
+        # self.stabilize()
+        # self.fix_finger()
+        # self.check_predecessor()
 
         
 
