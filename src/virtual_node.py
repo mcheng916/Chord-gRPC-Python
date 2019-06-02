@@ -24,6 +24,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         self.CHECKPRE_PERIOD = config["checkpre_period"]
         # print("LOG_SIZE:\t", self.LOG_SIZE, "\nSIZE:\t\t", self.SIZE, "\nREP_NUM:\t", self.REP_NUM)
         self.GLOBAL_TIMEOUT = 0.2
+        self.JOIN_RETRY_PERIOD = 0.1
 
         self.local_addr = local_addr
         self.remote_addr = remote_addr
@@ -85,8 +86,11 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         #     return server_pb2.FindSucResponse(id = self.successor_list[0][0], ip = self.successor_list[0][1])
         if request.id == self.successor_list[0][0] or (self.between(self.id, request.id, self.successor_list[0][0]) and
                                                        self.id != self.successor_list[0][0]):
-            return server_pb2.FindSucResponse(id=request.id, ip=self.local_addr)
+            return server_pb2.FindSucResponse(id=self.successor_list[0][0], ip=self.successor_list[0][1])
+        # Recursively find the successor
         else:
+            # Assume not all r successors fail simultaneously
+
             n_next = self.closest_preceding_node(request.id)
             find_request = server_pb2.FindSucRequest(id = request.id)
             channel = grpc.insecure_channel(n_next[1])
@@ -104,6 +108,8 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
     # return the successor list
     def find_succlist(self, request, context):
         resp = server_pb2.FindSucclistResponse()
+        # TODO: is this correct?
+        # How to assign repeated field, https://stackoverflow.com/questions/23726335/how-to-assign-to-repeated-field
         for i in range(len(self.successor_list)):
             resp.id_list.append(self.successor_list[i][0])
             resp.ip_list.append(self.successor_list[i][1])
@@ -119,21 +125,32 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
 
     # join a Chord ring containing node id
     def join(self, id, ip):
-        self.predecessor = None
-        find_request = server_pb2.FindSucRequest(id=self.id)
-        channel = grpc.insecure_channel(ip)
-        stub = server_pb2_grpc.ServerStub(channel)
-        find_resp = stub.find_successor(find_request, timeout = 0.2)
-        self.successor_list[0][0] = find_resp.id
-        self.successor_list[0][1] = find_resp.ip
-
-        find_request = server_pb2.EmptyRequest()
-        channel = grpc.insecure_channel(self.successor_list[0][1])
-        stub = server_pb2_grpc.ServerStub(channel)
-        find_resp = stub.find_succlist(find_request, timeout = 0.2)
-        for i in range(len(find_resp) - 1):
-            self.successor_list[i+1][0] = find_resp.id_list[i]
-            self.successor_list[i+1][1] = find_resp.ip_list[i]
+        while True:
+            try:
+                find_request = server_pb2.FindSucRequest(id=self.id)
+                channel = grpc.insecure_channel(ip)
+                stub = server_pb2_grpc.ServerStub(channel)
+                find_resp = stub.find_successor(find_request, timeout=self.GLOBAL_TIMEOUT)
+                self.successor_list[0][0] = find_resp.id
+                self.successor_list[0][1] = find_resp.ip
+                break
+            except Exception as e:
+                self.logger.error(f'[Join]: find successor failed <{e}>')
+                time.sleep(self.JOIN_RETRY_PERIOD)
+        while True:
+            try:
+                find_request = server_pb2.EmptyRequest()
+                channel = grpc.insecure_channel(self.successor_list[0][1])
+                stub = server_pb2_grpc.ServerStub(channel)
+                find_resp = stub.find_succlist(find_request, timeout=self.GLOBAL_TIMEOUT)
+                for i in range(len(find_resp) - 1):
+                    self.successor_list[i+1][0] = find_resp.id_list[i]
+                    self.successor_list[i+1][1] = find_resp.ip_list[i]
+                self.predecessor = [None, None]
+                break
+            except Exception as e:
+                self.logger.error(f'[Join]: find successor list failed <{e}>')
+                time.sleep(self.JOIN_RETRY_PERIOD)
 
     # called periodically. verifies n's immediate successor, and tells the successor about n.
     def stabilize(self):
@@ -217,12 +234,15 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         else:
             self.join(self.id, self.remote_addr)
         # Call periodical functions
-        t1 = threading.Thread(target = self.stabilize)
-        t2 = threading.Thread(target = self.fix_finger)
-        t3 = threading.Thread(target = self.check_predecessor)
-        t1.start()
-        t2.start()
-        t3.start()
+        find_successor_th = threading.Thread(target=self.find_successor, args=())
+        find_successor_th.start()
+        check_pred_th = threading.Thread(target=self.check_predecessor, args=())
+        check_pred_th.start()
+        stabilize_th = threading.Thread(target=self.stabilize, args=())
+        stabilize_th.start()
+        # self.stabilize()
+        # self.fix_finger()
+        # self.check_predecessor()
 
         
 
