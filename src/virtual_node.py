@@ -228,8 +228,8 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         else:
             self.join(self.id, self.remote_addr)
         # Call periodical functions
-        find_successor_th = threading.Thread(target=self.find_successor, args=())
-        find_successor_th.start()
+        fix_finger_th = threading.Thread(target=self.fix_finger(), args=())
+        fix_finger_th.start()
         check_pred_th = threading.Thread(target=self.check_predecessor, args=())
         check_pred_th.start()
         stabilize_th = threading.Thread(target=self.stabilize, args=())
