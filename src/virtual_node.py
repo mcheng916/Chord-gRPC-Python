@@ -96,10 +96,10 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
     def find_successor(self, request, context):
         # If only one node in Ring
         if self.id == self.successor_list[0][0]:
-            return server_pb2.FindSucResponse(id = request.id, ip = self.local_addr)
+            return server_pb2.FindSucResponse(id = self.id, ip = self.local_addr)
         # There is bug in paper algorithm, need to add boundary judgement
         if request.id == self.id:
-            return server_pb2.FindSucResponse(id = request.id, ip = self.local_addr)
+            return server_pb2.FindSucResponse(id = self.id, ip = self.local_addr)
         # if request.id > self.id and request.id <= self.successor_list[0][0]:
         #     return server_pb2.FindSucResponse(id = self.successor_list[0][0], ip = self.successor_list[0][1])
         # TODO: between logic might be incorrect
@@ -153,8 +153,9 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                 channel = grpc.insecure_channel(ip)
                 stub = server_pb2_grpc.ServerStub(channel)
                 find_resp = stub.find_successor(find_request, timeout=self.GLOBAL_TIMEOUT)
-                self.successor_list[0][0] = find_resp.id
-                self.successor_list[0][1] = find_resp.ip
+                newSucc = [-1, ""]
+                newSucc[0] = find_resp.id
+                newSucc[1] = find_resp.ip
                 break
             except Exception as e:
                 self.logger.error(f'[Join]: find successor failed <{e}>')
@@ -162,9 +163,11 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         while True:
             try:
                 find_request = server_pb2.EmptyRequest()
-                channel = grpc.insecure_channel(self.successor_list[0][1])
+                channel = grpc.insecure_channel(newSucc[1])
                 stub = server_pb2_grpc.ServerStub(channel)
                 find_resp = stub.find_succlist(find_request, timeout=self.GLOBAL_TIMEOUT)
+                self.successor_list[0][0] = newSucc[0]
+                self.successor_list[0][1] = newSucc[1]
                 for i in range(len(find_resp.id_list) - 1):
                     self.successor_list[i+1][0] = find_resp.id_list[i]
                     self.successor_list[i+1][1] = find_resp.ip_list[i]
@@ -273,6 +276,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                 self.predecessor[0] = request.id
                 self.predecessor[1] = request.ip
         return server_pb2_grpc.EmptyResponse()
+
 
         # called periodically. refreshes finger table entries. next stores the index of the next finger to fix.
     def fix_finger(self):
