@@ -20,11 +20,9 @@ enum ReturnCode {
 }
 
 message EmptyRequest {
-
 }
 
 message EmptyResponse {
-
 }
 
 message RectifyRequest {
@@ -94,3 +92,17 @@ message PutResponse {
     int32 nodeID = 2;
     string nodeIP = 3;
 }
+
+//Your proposal to implement and evaluate Chord on AWS is approved.  However, your proposal says that you will
+//simulate the protocol--just to be clear--you should implement the protocol and evaluate it at scale on AWS.
+
+//must be able to support 'k' node failures (where k is a small constant).  You must support virtual nodes as well
+//(e.g. 5 virtual nodes per physical node).  But you do not need to support having new nodes join the network.
+
+//First, the Chord library provides a function that yields the IP address of the node re- sponsible for the key.
+//Second, the Chord software on each node notifies the application of changes in the set of keys that the node
+//is responsible for.
+
+//The consistent hash function assigns each node and key an m-bit identifier using SHA-1 [10] as a base hash function.
+//A node’s identifier is chosen by hashing the node’s IP address,
+//Consistent hashing assigns keys to nodes as follows. Identifiers are ordered on an identifier circle modulo 2^m
