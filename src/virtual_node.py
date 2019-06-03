@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import threading
+import hashlib 
 from concurrent import futures
 import time
 import server_pb2_grpc
@@ -12,7 +13,7 @@ from threading import Condition
 
 # This class represents a virtual node
 class Virtual_node(server_pb2_grpc.ServerServicer):
-    def __init__(self, local_addr, remote_addr, id):
+    def __init__(self, local_addr, remote_addr):
         # Read configuration from json file
         config = json.load(open("config.json"))
         self.LOG_SIZE = config["log_size"]
@@ -24,16 +25,16 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         self.CHECKPRE_PERIOD = config["checkpre_period"]
         # print("LOG_SIZE:\t", self.LOG_SIZE, "\nSIZE:\t\t", self.SIZE, "\nREP_NUM:\t", self.REP_NUM)
         self.GLOBAL_TIMEOUT = 0.2
-        self.JOIN_RETRY_PERIOD = 0.1
+        self.JOIN_RETRY_PERIOD = 2
 
         self.local_addr = local_addr
         self.remote_addr = remote_addr
-        self.id = id
+        self.id = sha1(self.local_addr, self.SIZE)
 
         # [server id, server IP]
-        self.finger = [[None, None] for _ in range(self.LOG_SIZE)]
-        self.successor_list = [[None, None] for _ in range(self.SUCCESSOR_NUM)]
-        self.predecessor = [None, None]
+        self.finger = [[-1, ""] for _ in range(self.LOG_SIZE)]
+        self.successor_list = [[-1, ""] for _ in range(self.SUCCESSOR_NUM)]
+        self.predecessor = [-1, ""]
         self.next = 0
 
         self.fix_finger_cond = Condition()
@@ -65,6 +66,20 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         else:
             return n1 < n2 or n2 < n3
 
+    def get_node_status(self, request, context):
+        resp = server_pb2.NodeStatus()
+        resp.id = self.id
+        resp.ip = self.local_addr
+        resp.pred_id = self.predecessor[0]
+        resp.pred_ip = self.predecessor[1]
+        for i in range(len(self.successor_list)):
+            resp.suclist_id.append(self.successor_list[i][0])
+            resp.suclist_ip.append(self.successor_list[i][1])
+        for i in range(len(self.finger)):
+            resp.finger_id.append(self.finger[i][0])
+            resp.finger_ip.append(self.finger[i][1])
+        return resp
+
     # search the local table for the highest predecessor of id
     def closest_preceding_node(self, id):
         i = self.LOG_SIZE - 1
@@ -72,13 +87,16 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             # mcip: searching for predecessor such as for ex: between (40, 5)
             # if self.id < self.finger[i][0] < id or (self.finger[i][0] > self.id > id) or \
             #         (self.id > id > self.finger[i][0]):
-            if self.between(self.id, self.finger[i][0], id) and self.id != id:
+            if self.finger[i][0] != -1 and self.between(self.id, self.finger[i][0], id) and self.id != id:
                 return self.finger[i]
             i -= 1
         return [self.id, self.local_addr]
 
     # ask node n to find the successor of id
     def find_successor(self, request, context):
+        # If only one node in Ring
+        if self.id == self.successor_list[0][0]:
+            return server_pb2.FindSucResponse(id = request.id, ip = self.local_addr)
         # There is bug in paper algorithm, need to add boundary judgement
         if request.id == self.id:
             return server_pb2.FindSucResponse(id = request.id, ip = self.local_addr)
@@ -123,7 +141,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
 
     # create a new Chord ring
     def create(self):
-        self.predecessor = [None, None]
+        self.predecessor = [-1, ""]
         self.successor_list[0] = [self.id, self.local_addr]
 
     # join a Chord ring containing node id
@@ -146,10 +164,10 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                 channel = grpc.insecure_channel(self.successor_list[0][1])
                 stub = server_pb2_grpc.ServerStub(channel)
                 find_resp = stub.find_succlist(find_request, timeout=self.GLOBAL_TIMEOUT)
-                for i in range(len(find_resp) - 1):
+                for i in range(len(find_resp.id_list) - 1):
                     self.successor_list[i+1][0] = find_resp.id_list[i]
                     self.successor_list[i+1][1] = find_resp.ip_list[i]
-                self.predecessor = [None, None]
+                self.predecessor = [-1, ""]
                 break
             except Exception as e:
                 self.logger.error(f'[Join]: find successor list failed <{e}>')
@@ -193,7 +211,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             # threading.Timer(self.STABLE_PERIOD / 1000.0, self.stabilize).start()
 
     def rectify(self, request, context):
-        if self.predecessor[0] is None:
+        if self.predecessor[0] == -1:
             self.predecessor[0] = request.id
             self.predecessor[1] = request.ip
         else:
@@ -236,9 +254,9 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                 stub = server_pb2_grpc.ServerStub(channel)
                 check_resp = stub.live_predecessor(check_request, timeout=self.GLOBAL_TIMEOUT)
                 if check_resp.ret != server_pb2.SUCCESS:
-                    self.predecessor = [None, None]
+                    self.predecessor = [-1, ""]
             except Exception:
-                self.predecessor = [None, None]
+                self.predecessor = [-1, ""]
             with self.check_pred_cond:
                 self.check_pred_cond.wait(self.CHECKPRE_PERIOD / 1000.0)
             # if self.predecessor[1] is not None:
@@ -256,37 +274,43 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             # threading.Timer(self.CHECKPRE_PERIOD / 1000.0, self.check_predecessor).start()
 
     def run(self):
+        print("Start virtual node, id is: ", self.id)
         if self.remote_addr == None:
             self.create()
         else:
             self.join(self.id, self.remote_addr)
         # Call periodical functions
-        fix_finger_th = threading.Thread(target=self.fix_finger, args=())
-        fix_finger_th.start()
-        check_pred_th = threading.Thread(target=self.check_predecessor, args=())
-        check_pred_th.start()
-        stabilize_th = threading.Thread(target=self.stabilize, args=())
-        stabilize_th.start()
-        # self.stabilize()
-        # self.fix_finger()
-        # self.check_predecessor()
+        # fix_finger_th = threading.Thread(target=self.fix_finger, args=())
+        # fix_finger_th.start()
+        # check_pred_th = threading.Thread(target=self.check_predecessor, args=())
+        # check_pred_th.start()
+        # stabilize_th = threading.Thread(target=self.stabilize, args=())
+        # stabilize_th.start()
 
-        
+def sha1(key, size):
+    return int(hashlib.sha1(key.encode()).hexdigest(), 16) % size
 
-if __name__ == "__main__":
-    virtual_node = Virtual_node("127.0.0.1:7000", None, 0)
+def start_virtual_node(localAddr, remoteAddr):
+    virtual_node = Virtual_node(localAddr, remoteAddr)
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=20))
     server_pb2_grpc.add_ServerServicer_to_server(virtual_node, server)
-    server.add_insecure_port("127.0.0.1:7000")
+    server.add_insecure_port(localAddr)
     server.start()
-    
     virtual_node.run()
-
     try:
         while True:
             time.sleep(24*60*60)
     except KeyboardInterrupt:
         server.stop(0)
+
+if __name__ == "__main__":
+    threading.Thread(target=start_virtual_node, args=("127.0.0.1:7000", None)).start()
+    threading.Thread(target=start_virtual_node, args=("127.0.0.1:7001", "127.0.0.1:7000")).start()
+    # threading.Thread(target=start_virtual_node, args=("127.0.0.1:7002", "127.0.0.1:7000")).start()
+    # threading.Thread(target=start_virtual_node, args=("127.0.0.1:7003", "127.0.0.1:7000")).start()
+    # threading.Thread(target=start_virtual_node, args=("127.0.0.1:7004", "127.0.0.1:7000")).start()
+
+    
 
 
 

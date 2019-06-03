@@ -8,11 +8,23 @@ service Server {
     rpc find_succlist(EmptyRequest) returns (FindSucclistResponse) {}
     rpc find_predecessor(EmptyRequest) returns (FindPredResponse) {}
     rpc rectify(RectifyRequest) returns (EmptyResponse) {}
+    rpc get_node_status(EmptyRequest) returns (NodeStatus) {}
 }
 
 enum ReturnCode {
     SUCCESS = 0;
     FAILURE = 1;
+}
+
+message NodeStatus {
+    int32 id = 1;
+    string ip = 2;
+    int32 pred_id = 3;
+    string pred_ip = 4;
+    repeated int32 suclist_id = 5;
+    repeated string suclist_ip = 6;
+    repeated int32 finger_id = 7;
+    repeated string finger_ip = 8;
 }
 
 message EmptyRequest {

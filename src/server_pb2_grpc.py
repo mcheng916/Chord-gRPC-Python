@@ -39,6 +39,11 @@ class ServerStub(object):
         request_serializer=server__pb2.RectifyRequest.SerializeToString,
         response_deserializer=server__pb2.EmptyResponse.FromString,
         )
+    self.get_node_status = channel.unary_unary(
+        '/server.Server/get_node_status',
+        request_serializer=server__pb2.EmptyRequest.SerializeToString,
+        response_deserializer=server__pb2.NodeStatus.FromString,
+        )
 
 
 class ServerServicer(object):
@@ -80,6 +85,13 @@ class ServerServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def get_node_status(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_ServerServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -107,6 +119,11 @@ def add_ServerServicer_to_server(servicer, server):
           servicer.rectify,
           request_deserializer=server__pb2.RectifyRequest.FromString,
           response_serializer=server__pb2.EmptyResponse.SerializeToString,
+      ),
+      'get_node_status': grpc.unary_unary_rpc_method_handler(
+          servicer.get_node_status,
+          request_deserializer=server__pb2.EmptyRequest.FromString,
+          response_serializer=server__pb2.NodeStatus.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
