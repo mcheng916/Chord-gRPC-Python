@@ -9,6 +9,10 @@ service Server {
     rpc find_predecessor(EmptyRequest) returns (FindPredResponse) {}
     rpc rectify(RectifyRequest) returns (EmptyResponse) {}
     rpc get_node_status(EmptyRequest) returns (NodeStatus) {}
+    //defined by ourselves
+    rpc replicate_entries(ReplicateRequest) returns (ReplicateResponse){}
+    rpc get(GetRequest) returns (GetResponse) {}
+    rpc put(PutRequest) returns (PutResponse) {}
 }
 
 enum ReturnCode {
@@ -28,11 +32,9 @@ message NodeStatus {
 }
 
 message EmptyRequest {
-
 }
 
 message EmptyResponse {
-
 }
 
 message RectifyRequest {
@@ -66,3 +68,53 @@ message PredecessorRequest {
 message PredecessorResponse {
     ReturnCode ret = 1;
 }
+
+//hash result of the
+message LogEntry {
+    int32 hashID = 1;
+    string key = 2;
+    string val = 3;
+}
+
+message ReplicateRequest{
+    repeated LogEntry entries = 1;
+}
+
+message ReplicateResponse{
+    ReturnCode ret = 1;
+}
+
+message GetRequest {
+    string key = 1;
+}
+
+message GetResponse {
+    string response = 1;
+    int32 nodeID = 2;
+    string nodeIP = 3;
+}
+
+message PutRequest {
+    string key = 1;
+    string value = 2;
+}
+
+message PutResponse {
+    ReturnCode ret = 1;
+    int32 nodeID = 2;
+    string nodeIP = 3;
+}
+
+//Your proposal to implement and evaluate Chord on AWS is approved.  However, your proposal says that you will
+//simulate the protocol--just to be clear--you should implement the protocol and evaluate it at scale on AWS.
+
+//must be able to support 'k' node failures (where k is a small constant).  You must support virtual nodes as well
+//(e.g. 5 virtual nodes per physical node).  But you do not need to support having new nodes join the network.
+
+//First, the Chord library provides a function that yields the IP address of the node re- sponsible for the key.
+//Second, the Chord software on each node notifies the application of changes in the set of keys that the node
+//is responsible for.
+
+//The consistent hash function assigns each node and key an m-bit identifier using SHA-1 [10] as a base hash function.
+//A node’s identifier is chosen by hashing the node’s IP address,
+//Consistent hashing assigns keys to nodes as follows. Identifiers are ordered on an identifier circle modulo 2^m

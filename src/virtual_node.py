@@ -102,6 +102,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             return server_pb2.FindSucResponse(id = request.id, ip = self.local_addr)
         # if request.id > self.id and request.id <= self.successor_list[0][0]:
         #     return server_pb2.FindSucResponse(id = self.successor_list[0][0], ip = self.successor_list[0][1])
+        # TODO: between logic might be incorrect
         if request.id == self.successor_list[0][0] or (self.between(self.id, request.id, self.successor_list[0][0]) and
                                                        self.id != self.successor_list[0][0]):
             return server_pb2.FindSucResponse(id=self.successor_list[0][0], ip=self.successor_list[0][1])
@@ -175,40 +176,85 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
 
     # called periodically. verifies n's immediate successor, and tells the successor about n.
     def stabilize(self):
-        while True:
-            print("Stabilize")
             self.logger.debug("[Stabilize]")
-            while len(self.successor_list) > 0:
-                try:
-                    empty_request = server_pb2.EmptyRequest()
-                    channel = grpc.insecure_channel(self.successor_list[0][1])
-                    stub = server_pb2_grpc.ServerStub(channel)
-                    pred = stub.find_predecessor(empty_request, timeout = self.GLOBAL_TIMEOUT)
-                    succList = stub.find_succlist(empty_request, timeout = self.GLOBAL_TIMEOUT) 
-                    newSucc = [pred.id, pred.ip]
-                    self.successor_list = [self.successor_list[0]] + succList[:-1]
-                    if self.between(self.id, newSucc[0], self.successor_list[0][0]):
-                        try:
-                            empty_request = server_pb2.EmptyRequest()
-                            channel = grpc.insecure_channel(newSucc[1])
-                            stub = server_pb2_grpc.ServerStub(channel)
-                            succList = stub.find_succlist(empty_request, timeout = self.GLOBAL_TIMEOUT)
-                            self.successor_list = [newSucc] + succList[:-1]
-                        except Exception:
-                            pass
+            while True:
+                while len(self.successor_list) > 0:
                     try:
-                        rectify_request = server_pb2.RectifyRequest(id = self.id, ip = self.local_addr)
+                        empty_request = server_pb2.EmptyRequest()
                         channel = grpc.insecure_channel(self.successor_list[0][1])
                         stub = server_pb2_grpc.ServerStub(channel)
-                        stub.rectify(rectify_request, timeout = self.GLOBAL_TIMEOUT)
-                    except Exception:
-                        pass
-                    break
-                except Exception:
-                    self.successor_list = self.successor_list[1:]
-            with self.stabilize_cond:
-                self.stabilize_cond.wait(self.STABLE_PERIOD / 1000.0)
+                        pred_resp = stub.find_predecessor(empty_request, timeout=self.GLOBAL_TIMEOUT)
+                        succlist_resp = stub.find_succlist(empty_request, timeout=self.GLOBAL_TIMEOUT)
+                        possible_succ = [pred_resp.id, pred_resp.ip]
+                        # TODO: how to deal with response correctly
+                        self.successor_list = [[succlist_resp.id_list[0], succlist_resp.ip_list[0]]]
+                        empty_request2 = server_pb2.EmptyRequest()
+                        channel2 = grpc.insecure_channel(self.successor_list[0][1])
+                        stub2 = server_pb2_grpc.ServerStub(channel2)
+                        succlist_resp2 = stub2.find_succlist(empty_request2, timeout=self.GLOBAL_TIMEOUT)
+                        for i in range(len(succlist_resp2.id_list)-1):
+                            self.successor_list += [[succlist_resp2.id_list[i], succlist_resp2.ip_list[i]]]
+                        if self.between(self.id, possible_succ[0], self.successor_list[0][0]):
+                            try:
+                                empty_request3 = server_pb2.EmptyRequest()
+                                channel3 = grpc.insecure_channel(possible_succ[1])
+                                stub3 = server_pb2_grpc.ServerStub(channel3)
+                                succlist_resp3 = stub3.find_succlist(empty_request3, timeout=self.GLOBAL_TIMEOUT)
+                                self.successor_list = [[possible_succ]]
+                                for i in range(len(succlist_resp3.id_list)-1):
+                                    self.successor_list += [[succlist_resp3.id_list[i], succlist_resp3.ip_list[i]]]
+                            except Exception as e:
+                                self.logger.error(f'[Stabilize]: possible new successor is queried but failed\n <{e}>')
+                        try:
+                            # Notify the head
+                            rectify_request = server_pb2.RectifyRequest(id=self.id, ip=self.local_addr)
+                            channel4 = grpc.insecure_channel(self.successor_list[0][1])
+                            stub4 = server_pb2_grpc.ServerStub(channel4)
+                            stub4.rectify(rectify_request, timeout=self.GLOBAL_TIMEOUT)
+                        except Exception as e:
+                            self.logger.error(f'[Stabilize]: rectify request failed')
+                        break
+                    except Exception as e:
+                        # TODO: need to deal with shrinking successor list?
+                        self.successor_list = self.successor_list[1:]
+                        self.logger.error(f'[Stabilize]: no response for first successor check, \nerror: <{e}>')
+                with self.stabilize_cond:
+                    self.stabilize_cond.wait(self.STABLE_PERIOD / 1000.0)
             # threading.Timer(self.STABLE_PERIOD / 1000.0, self.stabilize).start()
+    # def stabilize(self):
+    #     while True:
+    #         self.logger.debug("[Stabilize]")
+    #         while len(self.successor_list) > 0:
+    #             try:
+    #                 empty_request = server_pb2.EmptyRequest()
+    #                 channel = grpc.insecure_channel(self.successor_list[0][1])
+    #                 stub = server_pb2_grpc.ServerStub(channel)
+    #                 pred_resp = stub.find_predecessor(empty_request, timeout=self.GLOBAL_TIMEOUT)
+    #                 succList_resp = stub.find_succlist(empty_request, timeout=self.GLOBAL_TIMEOUT)
+    #                 newSucc = [pred_resp.id, pred_resp.ip]
+    #                 self.successor_list = [self.successor_list[0]] + succList[:-1]
+    #                 if self.between(self.id, newSucc[0], self.successor_list[0][0]):
+    #                     try:
+    #                         empty_request = server_pb2.EmptyRequest()
+    #                         channel = grpc.insecure_channel(newSucc[1])
+    #                         stub = server_pb2_grpc.ServerStub(channel)
+    #                         succList = stub.find_succlist(empty_request, timeout = self.GLOBAL_TIMEOUT)
+    #                         self.successor_list = [newSucc] + succList[:-1]
+    #                     except Exception:
+    #                         pass
+    #                 try:
+    #                     rectify_request = server_pb2.RectifyRequest(id = self.id, ip = self.local_addr)
+    #                     channel = grpc.insecure_channel(self.successor_list[0][1])
+    #                     stub = server_pb2_grpc.ServerStub(channel)
+    #                     stub.rectify(rectify_request, timeout = self.GLOBAL_TIMEOUT)
+    #                 except Exception:
+    #                     pass
+    #                 break
+    #             except Exception:
+    #                 self.successor_list = self.successor_list[1:]
+    #         with self.stabilize_cond:
+    #             self.stabilize_cond.wait(self.STABLE_PERIOD / 1000.0)
+    #         # threading.Timer(self.STABLE_PERIOD / 1000.0, self.stabilize).start()
 
     def rectify(self, request, context):
         if self.predecessor[0] == -1:
@@ -223,11 +269,12 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                 if self.between(self.predecessor[0], request.id, self.id):
                     self.predecessor[0] = request.id
                     self.predecessor[1] = request.ip
-            except Exception:
+            except Exception as e:
                 self.predecessor[0] = request.id
                 self.predecessor[1] = request.ip
+        return server_pb2_grpc.EmptyResponse()
 
-    # called periodically. refreshes finger table entries. next stores the index of the next finger to fix.
+        # called periodically. refreshes finger table entries. next stores the index of the next finger to fix.
     def fix_finger(self):
         while True:
             print("Fix Finger")
@@ -272,6 +319,31 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             #         self.predecessor[0] = None
             #         self.predecessor[1] = None
             # threading.Timer(self.CHECKPRE_PERIOD / 1000.0, self.check_predecessor).start()
+
+    def replicate_entries(self, request, context):
+        pass
+
+
+    def send_replicate_entries(self, req):
+        for suc in self.successor_list:
+            send_thread = threading.Thread(target=thread_send_replicate, args=(suc[0], suc[1], req,))
+            send_thread.start()
+
+    def thread_send_replicate(self, id, ip, req):
+        try:
+            while True:
+                channel = grpc.insecure_channel(ip)
+                grpc.channel_ready_future(channel).result()
+                stub = server_pb2_grpc.ServerStub(channel)
+                replicate_resp = stub.replicate_entries(req, timeout=self.GLOBAL_TIMEOUT)
+                if not replicate_resp.SUCCESS:
+                    self.stabilize_cond.notify()
+                else:
+                    return
+        except Exception as e:
+            pass
+
+
 
     def run(self):
         print("Start virtual node, id is: ", self.id)

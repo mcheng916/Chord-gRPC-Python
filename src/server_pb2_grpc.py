@@ -44,6 +44,21 @@ class ServerStub(object):
         request_serializer=server__pb2.EmptyRequest.SerializeToString,
         response_deserializer=server__pb2.NodeStatus.FromString,
         )
+    self.replicate_entries = channel.unary_unary(
+        '/server.Server/replicate_entries',
+        request_serializer=server__pb2.ReplicateRequest.SerializeToString,
+        response_deserializer=server__pb2.ReplicateResponse.FromString,
+        )
+    self.get = channel.unary_unary(
+        '/server.Server/get',
+        request_serializer=server__pb2.GetRequest.SerializeToString,
+        response_deserializer=server__pb2.GetResponse.FromString,
+        )
+    self.put = channel.unary_unary(
+        '/server.Server/put',
+        request_serializer=server__pb2.PutRequest.SerializeToString,
+        response_deserializer=server__pb2.PutResponse.FromString,
+        )
 
 
 class ServerServicer(object):
@@ -92,6 +107,27 @@ class ServerServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def replicate_entries(self, request, context):
+    """defined by ourselves
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def get(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def put(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_ServerServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -124,6 +160,21 @@ def add_ServerServicer_to_server(servicer, server):
           servicer.get_node_status,
           request_deserializer=server__pb2.EmptyRequest.FromString,
           response_serializer=server__pb2.NodeStatus.SerializeToString,
+      ),
+      'replicate_entries': grpc.unary_unary_rpc_method_handler(
+          servicer.replicate_entries,
+          request_deserializer=server__pb2.ReplicateRequest.FromString,
+          response_serializer=server__pb2.ReplicateResponse.SerializeToString,
+      ),
+      'get': grpc.unary_unary_rpc_method_handler(
+          servicer.get,
+          request_deserializer=server__pb2.GetRequest.FromString,
+          response_serializer=server__pb2.GetResponse.SerializeToString,
+      ),
+      'put': grpc.unary_unary_rpc_method_handler(
+          servicer.put,
+          request_deserializer=server__pb2.PutRequest.FromString,
+          response_serializer=server__pb2.PutResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
