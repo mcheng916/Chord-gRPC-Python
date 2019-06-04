@@ -1,0 +1,7 @@
+session_name: chord-server-environment
+windows:
+- window_name: chord-server
+  layout: tiled
+  shell_command_before:
+    - pwd
+  panes:

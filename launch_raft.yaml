@@ -1,0 +1,18 @@
+session_name: raft-server-environment
+windows:
+- window_name: raft-server
+  layout: tiled
+  shell_command_before:
+    - pwd
+  panes:
+    - reset && python src/raft.py localhost:7000 --id 0 --server_list_file server-list.csv
+    - reset && python src/raft.py localhost:7001 --id 1 --server_list_file server-list.csv
+    - reset && python src/raft.py localhost:7002 --id 2 --server_list_file server-list.csv
+    - reset && python src/raft.py localhost:7003 --id 3 --server_list_file server-list.csv
+    - reset && python src/raft.py localhost:7004 --id 4 --server_list_file server-list.csv
+    - reset && python src/raft.py localhost:7005 --id 5 --server_list_file server-list.csv
+    - reset && python src/raft.py localhost:7006 --id 6 --server_list_file server-list.csv
+    - reset && python src/raft.py localhost:7007 --id 7 --server_list_file server-list.csv
+    - reset && python src/raft.py localhost:7008 --id 8 --server_list_file server-list.csv
+    - reset && python src/raft.py localhost:7009 --id 9 --server_list_file server-list.csv
+    - reset && python src/raft.py localhost:7010 --id 10 --server_list_file server-list.csv

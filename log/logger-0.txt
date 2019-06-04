@@ -1,1 +1,104 @@
 [54:07,998 INFO]: Here
+[15:18,89 DEBUG]: [Finger]: Fix Finger
+[15:18,90 DEBUG]: Check predecessor
+[15:18,90 DEBUG]: [Stabilize]
+[15:18,92 DEBUG]: [Finger]: Fix finger index: <1>
+[15:18,298 ERROR]: [Stabilize]: possible new successor is queried but failed
+ <<_Rendezvous of RPC that terminated with:
+	status = StatusCode.DEADLINE_EXCEEDED
+	details = "Deadline Exceeded"
+	debug_error_string = "{"created":"@1559614518.298748000","description":"Failed to create subchannel","file":"src/core/ext/filters/client_channel/client_channel.cc","file_line":2261,"referenced_errors":[{"created":"@1559614518.298744000","description":"Pick Cancelled","file":"src/core/ext/filters/client_channel/lb_policy/pick_first/pick_first.cc","file_line":224,"referenced_errors":[{"created":"@1559614518.298742000","description":"Deadline Exceeded","file":"src/core/ext/filters/deadline/deadline_filter.cc","file_line":69,"grpc_status":4}]}]}"
+>>
+[15:18,301 ERROR]: [Rectify]: request is: <ip: "localhost:7000"
+>
+[15:18,302 ERROR]: [Stabilize]: rectify request failed
+[15:18,320 ERROR]: [Rectify]: request is: <id: 3
+ip: "localhost:7003"
+>
+[15:18,387 ERROR]: [Rectify]: request is: <id: 4
+ip: "localhost:7004"
+>
+[15:18,395 ERROR]: [Rectify]: request is: <id: 1
+ip: "localhost:7001"
+>
+[15:18,458 ERROR]: [Rectify]: request is: <id: 2
+ip: "localhost:7002"
+>
+[15:18,462 ERROR]: [Rectify]: request is: <id: 5
+ip: "localhost:7005"
+>
+[15:18,529 ERROR]: [Rectify]: request is: <id: 6
+ip: "localhost:7006"
+>
+[15:18,589 ERROR]: [Rectify]: request is: <id: 7
+ip: "localhost:7007"
+>
+[15:18,647 ERROR]: [Rectify]: request is: <id: 8
+ip: "localhost:7008"
+>
+[15:18,697 ERROR]: [Rectify]: request is: <id: 9
+ip: "localhost:7009"
+>
+[15:18,744 ERROR]: [Rectify]: request is: <id: 10
+ip: "localhost:7010"
+>
+[15:19,92 DEBUG]: [Finger]: Fix Finger
+[15:19,95 DEBUG]: [Finger]: Fix finger index: <2>
+[15:19,100 DEBUG]: Check predecessor
+[15:19,314 ERROR]: [Stabilize]: rectify request failed
+[15:20,100 DEBUG]: [Finger]: Fix Finger
+[15:20,103 DEBUG]: Check predecessor
+[15:20,103 ERROR]: [Finger]: Can't fix finger index: <3>
+[15:20,315 ERROR]: [Stabilize]: no response for first successor check, 
+error: <list index out of range>
+[15:21,108 DEBUG]: [Finger]: Fix Finger
+[15:21,108 DEBUG]: Check predecessor
+[15:21,110 ERROR]: [Finger]: Can't fix finger index: <4>
+[15:22,111 DEBUG]: [Finger]: Fix Finger
+[15:22,112 DEBUG]: Check predecessor
+[15:22,114 ERROR]: [Finger]: Can't fix finger index: <5>
+[15:23,116 DEBUG]: [Finger]: Fix Finger
+[15:23,116 DEBUG]: Check predecessor
+[15:23,119 ERROR]: [Finger]: Can't fix finger index: <6>
+[15:24,124 DEBUG]: [Finger]: Fix Finger
+[15:24,125 DEBUG]: Check predecessor
+[15:24,128 ERROR]: [Finger]: Can't fix finger index: <7>
+[15:25,133 DEBUG]: [Finger]: Fix Finger
+[15:25,133 DEBUG]: Check predecessor
+[15:25,136 ERROR]: [Finger]: Can't fix finger index: <0>
+[15:26,140 DEBUG]: [Finger]: Fix Finger
+[15:26,140 DEBUG]: Check predecessor
+[15:26,142 ERROR]: [Finger]: Can't fix finger index: <1>
+[15:27,145 DEBUG]: [Finger]: Fix Finger
+[15:27,146 DEBUG]: Check predecessor
+[15:27,148 ERROR]: [Finger]: Can't fix finger index: <2>
+[15:28,149 DEBUG]: [Finger]: Fix Finger
+[15:28,149 DEBUG]: Check predecessor
+[15:28,151 ERROR]: [Finger]: Can't fix finger index: <3>
+[15:29,154 DEBUG]: Check predecessor
+[15:29,154 DEBUG]: [Finger]: Fix Finger
+[15:29,157 ERROR]: [Finger]: Can't fix finger index: <4>
+[15:30,161 DEBUG]: Check predecessor
+[15:30,161 DEBUG]: [Finger]: Fix Finger
+[15:30,165 ERROR]: [Finger]: Can't fix finger index: <5>
+[15:31,165 DEBUG]: Check predecessor
+[15:31,166 DEBUG]: [Finger]: Fix Finger
+[15:31,169 ERROR]: [Finger]: Can't fix finger index: <6>
+[15:32,168 DEBUG]: Check predecessor
+[15:32,174 DEBUG]: [Finger]: Fix Finger
+[15:32,177 ERROR]: [Finger]: Can't fix finger index: <7>
+[15:33,177 DEBUG]: Check predecessor
+[15:33,181 DEBUG]: [Finger]: Fix Finger
+[15:33,183 ERROR]: [Finger]: Can't fix finger index: <0>
+[15:34,184 DEBUG]: Check predecessor
+[15:34,185 DEBUG]: [Finger]: Fix Finger
+[15:34,188 ERROR]: [Finger]: Can't fix finger index: <1>
+[15:35,189 DEBUG]: [Finger]: Fix Finger
+[15:35,190 DEBUG]: Check predecessor
+[15:35,193 ERROR]: [Finger]: Can't fix finger index: <2>
+[15:36,194 DEBUG]: [Finger]: Fix Finger
+[15:36,194 DEBUG]: Check predecessor
+[15:36,196 ERROR]: [Finger]: Can't fix finger index: <3>
+[15:37,198 DEBUG]: [Finger]: Fix Finger
+[15:37,198 DEBUG]: Check predecessor
+[15:37,202 ERROR]: [Finger]: Can't fix finger index: <4>

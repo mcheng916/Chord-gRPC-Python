@@ -13,9 +13,9 @@ from threading import Condition
 
 # This class represents a virtual node
 class Virtual_node(server_pb2_grpc.ServerServicer):
-    def __init__(self, local_addr, remote_addr):
+    def __init__(self, id: int, local_addr, remote_addr, config):
         # Read configuration from json file
-        config = json.load(open("config.json"))
+        # config = json.load(open("config.json"))
         self.LOG_SIZE = config["log_size"]
         self.SIZE = 1 << self.LOG_SIZE
         self.REP_NUM = config["replication_num"]
@@ -29,7 +29,8 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
 
         self.local_addr = local_addr
         self.remote_addr = remote_addr
-        self.id = sha1(self.local_addr, self.SIZE)
+        # self.id = sha1(self.local_addr, self.SIZE)
+        self.id = id
 
         # [server id, server IP]
         self.finger = [[-1, ""] for _ in range(self.LOG_SIZE)]
@@ -260,6 +261,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
     #         # threading.Timer(self.STABLE_PERIOD / 1000.0, self.stabilize).start()
 
     def rectify(self, request, context):
+        self.logger.error(f'[Rectify]: request is: <{request}>')
         if self.predecessor[0] == -1:
             self.predecessor[0] = request.id
             self.predecessor[1] = request.ip
@@ -278,17 +280,17 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         return server_pb2_grpc.EmptyResponse()
 
 
-        # called periodically. refreshes finger table entries. next stores the index of the next finger to fix.
+    # called periodically. refreshes finger table entries. next stores the index of the next finger to fix.
     def fix_finger(self):
         while True:
-            print("Fix Finger")
+            self.logger.debug("[Finger]: Fix Finger")
             self.next = self.next + 1
             if self.next >= self.LOG_SIZE:
                 self.next = 0
             try:
                 self.finger[self.next] = self.send_find_successor_request(self.id + 1 << self.next, self.local_addr)
                 self.logger.debug(f"[Finger]: Fix finger index: <{self.next}>")
-            except Exception:
+            except Exception as e:
                 self.logger.error(f"[Finger]: Can't fix finger index: <{self.next}>") #, error: <{e}>")
             with self.fix_finger_cond:
                 self.fix_finger_cond.wait(self.FIXFINGER_PERIOD / 1000.0)
@@ -297,7 +299,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
     # call periodically. checks whether predecessor has failed
     def check_predecessor(self):
         while True:
-            print("Check predecessor")
+            # print("Check predecessor")
             self.logger.debug("Check predecessor")
             try:
                 check_request = server_pb2.PredecessorRequest(id=self.id)
@@ -310,19 +312,6 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                 self.predecessor = [-1, ""]
             with self.check_pred_cond:
                 self.check_pred_cond.wait(self.CHECKPRE_PERIOD / 1000.0)
-            # if self.predecessor[1] is not None:
-            #     try:
-            #         check_request = server_pb2.PredecessorRequest(id=self.id)
-            #         channel = grpc.insecure_channel(self.predecessor[1])
-            #         stub = server_pb2_grpc.ServerStub(channel)
-            #         check_resp = stub.live_predecessor(check_request, timeout=0.2)
-            #         if check_resp.ret != server_pb2.SUCCESS:
-            #             self.predecessor[0] = None
-            #             self.predecessor[1] = None
-            #     except Exception as e:
-            #         self.predecessor[0] = None
-            #         self.predecessor[1] = None
-            # threading.Timer(self.CHECKPRE_PERIOD / 1000.0, self.check_predecessor).start()
 
     def replicate_entries(self, request, context):
         pass
@@ -356,28 +345,28 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         else:
             self.join(self.id, self.remote_addr)
         # Call periodical functions
-        # fix_finger_th = threading.Thread(target=self.fix_finger, args=())
-        # fix_finger_th.start()
-        # check_pred_th = threading.Thread(target=self.check_predecessor, args=())
-        # check_pred_th.start()
-        # stabilize_th = threading.Thread(target=self.stabilize, args=())
-        # stabilize_th.start()
+        fix_finger_th = threading.Thread(target=self.fix_finger, args=())
+        fix_finger_th.start()
+        check_pred_th = threading.Thread(target=self.check_predecessor, args=())
+        check_pred_th.start()
+        stabilize_th = threading.Thread(target=self.stabilize, args=())
+        stabilize_th.start()
 
 def sha1(key, size):
     return int(hashlib.sha1(key.encode()).hexdigest(), 16) % size
 
-def start_virtual_node(localAddr, remoteAddr):
-    virtual_node = Virtual_node(localAddr, remoteAddr)
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=20))
-    server_pb2_grpc.add_ServerServicer_to_server(virtual_node, server)
-    server.add_insecure_port(localAddr)
-    server.start()
-    virtual_node.run()
-    try:
-        while True:
-            time.sleep(24*60*60)
-    except KeyboardInterrupt:
-        server.stop(0)
+# def start_virtual_node(localAddr, remoteAddr):
+#     virtual_node = Virtual_node(localAddr, remoteAddr)
+#     server = grpc.server(futures.ThreadPoolExecutor(max_workers=20))
+#     server_pb2_grpc.add_ServerServicer_to_server(virtual_node, server)
+#     server.add_insecure_port(localAddr)
+#     server.start()
+#     virtual_node.run()
+#     try:
+#         while True:
+#             time.sleep(24*60*60)
+#     except KeyboardInterrupt:
+#         server.stop(0)
 
 if __name__ == "__main__":
     threading.Thread(target=start_virtual_node, args=("127.0.0.1:7000", None)).start()
