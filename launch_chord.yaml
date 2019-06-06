@@ -6,13 +6,13 @@ windows:
     - pwd
   panes:
     - reset && python src/chord.py localhost:7000 --id 0 --join localhost:7000 
-    - reset && python src/chord.py localhost:7001 --id 1 --join localhost:7000 
-    - reset && python src/chord.py localhost:7002 --id 2 --join localhost:7000 
-    - reset && python src/chord.py localhost:7003 --id 3 --join localhost:7000 
-    - reset && python src/chord.py localhost:7004 --id 4 --join localhost:7000 
-    - reset && python src/chord.py localhost:7005 --id 5 --join localhost:7000 
-    - reset && python src/chord.py localhost:7006 --id 6 --join localhost:7000 
-    - reset && python src/chord.py localhost:7007 --id 7 --join localhost:7000 
-    - reset && python src/chord.py localhost:7008 --id 8 --join localhost:7000 
-    - reset && python src/chord.py localhost:7009 --id 9 --join localhost:7000 
-    - reset && python src/chord.py localhost:7010 --id 10 --join localhost:7000 
+    - reset && python src/chord.py localhost:7001 --id 6 --join localhost:7000 
+    - reset && python src/chord.py localhost:7002 --id 12 --join localhost:7000 
+    - reset && python src/chord.py localhost:7003 --id 18 --join localhost:7000 
+    - reset && python src/chord.py localhost:7004 --id 24 --join localhost:7000 
+    - reset && python src/chord.py localhost:7005 --id 30 --join localhost:7000 
+    - reset && python src/chord.py localhost:7006 --id 36 --join localhost:7000 
+    - reset && python src/chord.py localhost:7007 --id 42 --join localhost:7000 
+    - reset && python src/chord.py localhost:7008 --id 48 --join localhost:7000 
+    - reset && python src/chord.py localhost:7009 --id 54 --join localhost:7000 
+    - reset && python src/chord.py localhost:7010 --id 60 --join localhost:7000 

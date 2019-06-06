@@ -69,10 +69,13 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             return False
         if n1 == -1:
             return True
-        if n1 < n3:
-            return n1 < n2 < n3
-        else:
-            return n1 < n2 or n2 < n3
+        # if n1 < n3:
+        #     return n1 < n2 < n3
+        # else:
+        #     return n1 < n2 or n2 < n3
+        n2 = (n2-n1) % (1 << self.LOG_SIZE)
+        n3 = (n3-n1) % (1 << self.LOG_SIZE)
+        return 0 < n2 < n3
 
     def get_node_status(self, request, context):
         resp = server_pb2.NodeStatus()
@@ -135,8 +138,8 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         channel = grpc.insecure_channel(ip)
         stub = server_pb2_grpc.ServerStub(channel)
         find_resp = stub.find_successor(find_request, timeout=self.GLOBAL_TIMEOUT)
-        self.logger.debug(f"[init_find_suc]: lookup id: <{find_request.id}>, ip: <{ip}>")
-        self.logger.debug(f"[init_find_suc]: found id: <{find_resp.id}>, ip: <{find_resp.ip}>")
+        # self.logger.debug(f"[init_find_suc]: lookup id: <{find_request.id}>, ip: <{ip}>")
+        self.logger.debug(f"[init_find_suc]: lookup id: <{find_request.id}>, found id: <{find_resp.id}>")
         return [find_resp.id, find_resp.ip]
 
         # find_request = server_pb2.FindSucRequest(id=self.id)
@@ -245,8 +248,9 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                         stub3 = server_pb2_grpc.ServerStub(channel3)
                         succlist_resp3 = stub3.find_succlist(empty_request3, timeout=self.GLOBAL_TIMEOUT)
                         self.append_but_last(possible_succ, succlist_resp3)
-                        self.logger.debug(f'[Stabilize]: Successor is now previous successors pred, successor list:'
-                                          f' <{self.successor_list}>')
+                        self.logger.debug(f'[Stabilize]: Succ is prev succ pred, successor list: '
+                                          f'<{self.successor_list}>, btw <{self.id}> <{possible_succ[0]}> '
+                                          f'<{self.successor_list[0][0]}>')
                     except Exception as e:
                         self.logger.error(f'[Stabilize]: prev succ pred <{possible_succ}> query failed\nerror: <{e}>')
                 else:
@@ -303,16 +307,17 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         #         self.fix_finger_cond.wait()
         with self.fix_finger_cond:
             self.fix_finger_cond.wait()
+        self.logger.debug("[Finger]: started")
         while True:
-            self.logger.debug("[Finger]: started")
             try:
                 self.finger[self.next] = self.init_find_successor(self.id + 1 << self.next, self.local_addr)
-                self.logger.debug(f"[Finger]: Fix finger index: <{self.next}>, suc list length: <{len(self.successor_list)}>")
+                self.logger.debug(f"[Finger]: fix_next: <{self.next}>, id: <{self.id + 1 << self.next}>, "
+                                  f"finger_table: <{self.finger}>")
                 self.next = (self.next + 1) % self.LOG_SIZE
-                if self.successor_list[self.next][0] == -1:  # there is no successor at this place, set to 0
-                    self.next = 0
+                # if self.successor_list[self.next][0] == -1:  # there is no successor at this place, set to 0
+                #     self.next = 0
             except Exception as e:
-                self.logger.error(f"[Finger]: Can't fix finger index: <{self.next}>\nerror: <{e}>")
+                self.logger.error(f"[Finger]: Failed at fix_next: <{self.next}>\nerror: <{e}>")
             with self.fix_finger_cond:
                 self.fix_finger_cond.wait(self.FIXFINGER_PERIOD / 1000.0)
         # threading.Timer(self.FIXFINGER_PERIOD / 1000.0, self.fix_finger).start()
@@ -321,7 +326,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
     # TODO: this function can be fully replaced by rectify?
     def check_predecessor(self):
         while True:
-            self.logger.debug("[Check pred]")
+            # self.logger.debug("[Check pred]")
             try:
                 check_request = server_pb2.PredecessorRequest(id=self.id)
                 channel = grpc.insecure_channel(self.predecessor[1])
