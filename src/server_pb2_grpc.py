@@ -26,7 +26,7 @@ class ServerStub(object):
         )
     self.find_succlist = channel.unary_unary(
         '/server.Server/find_succlist',
-        request_serializer=server__pb2.EmptyRequest.SerializeToString,
+        request_serializer=server__pb2.FindSucclistRequest.SerializeToString,
         response_deserializer=server__pb2.FindSucclistResponse.FromString,
         )
     self.find_predecessor = channel.unary_unary(
@@ -143,7 +143,7 @@ def add_ServerServicer_to_server(servicer, server):
       ),
       'find_succlist': grpc.unary_unary_rpc_method_handler(
           servicer.find_succlist,
-          request_deserializer=server__pb2.EmptyRequest.FromString,
+          request_deserializer=server__pb2.FindSucclistRequest.FromString,
           response_serializer=server__pb2.FindSucclistResponse.SerializeToString,
       ),
       'find_predecessor': grpc.unary_unary_rpc_method_handler(

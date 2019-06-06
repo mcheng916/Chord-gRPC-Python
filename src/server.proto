@@ -5,7 +5,7 @@ package server;
 service Server {
     rpc find_successor(FindSucRequest) returns (FindSucResponse) {}
     rpc live_predecessor(PredecessorRequest) returns (PredecessorResponse) {}
-    rpc find_succlist(EmptyRequest) returns (FindSucclistResponse) {}
+    rpc find_succlist(FindSucclistRequest) returns (FindSucclistResponse) {}
     rpc find_predecessor(EmptyRequest) returns (FindPredResponse) {}
     rpc rectify(RectifyRequest) returns (EmptyResponse) {}
     rpc get_node_status(EmptyRequest) returns (NodeStatus) {}
@@ -37,6 +37,7 @@ message EmptyRequest {
 message EmptyResponse {
 }
 
+//Not needed to include inc id and ip
 message RectifyRequest {
     int32 id = 1;
     string ip = 2;
@@ -44,6 +45,8 @@ message RectifyRequest {
 
 message FindSucRequest {
     int32 id = 1;
+    int32 inc_id = 2;
+    string inc_ip = 3;
 }
 
 message FindSucResponse {
@@ -56,11 +59,17 @@ message FindPredResponse {
     string ip = 2;
 }
 
+message FindSucclistRequest{
+    int32 inc_id = 1;
+    string inc_ip = 2;
+}
+
 message FindSucclistResponse {
     repeated int32 id_list = 1;
     repeated string ip_list = 2;
 }
 
+//Not needed to insert inc_id and ip?
 message PredecessorRequest {
     int32 id = 1;
 }
@@ -69,7 +78,7 @@ message PredecessorResponse {
     ReturnCode ret = 1;
 }
 
-//hash result of the
+//hash result of the key
 message LogEntry {
     int32 hashID = 1;
     string key = 2;
