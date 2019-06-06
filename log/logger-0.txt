@@ -1,22 +1,48 @@
-[09:59,809 DEBUG]: [Finger]: successor list: <[[-1, ''], [-1, ''], [-1, '']]>, id: <0>
-[09:59,809 DEBUG]: [Init]: First virtual node, id <0>, ip <localhost:7000>
-[09:59,812 DEBUG]: [Finger]: Fix finger index: <0>, suc list length: <3>
-[09:59,938 DEBUG]: [Rectify]: Predecessor is now id: <1> ip: <localhost:7001> due to no pred
-[10:00,16 DEBUG]: [Rectify]: Predecessor is now id: <2> ip: <localhost:7002> since new pred proposal is between
-[10:00,100 DEBUG]: [Rectify]: Predecessor is now id: <3> ip: <localhost:7003> since new pred proposal is between
-[10:00,205 DEBUG]: [Rectify]: Predecessor is now id: <4> ip: <localhost:7004> since new pred proposal is between
-[10:00,298 DEBUG]: [Rectify]: Predecessor is now id: <5> ip: <localhost:7005> since new pred proposal is between
-[10:00,369 DEBUG]: [Rectify]: Predecessor is now id: <6> ip: <localhost:7006> since new pred proposal is between
-[10:00,431 DEBUG]: [Rectify]: Predecessor is now id: <7> ip: <localhost:7007> since new pred proposal is between
-[10:00,479 DEBUG]: [Rectify]: Predecessor is now id: <8> ip: <localhost:7008> since new pred proposal is between
-[10:00,521 DEBUG]: [Rectify]: Predecessor is now id: <9> ip: <localhost:7009> since new pred proposal is between
-[10:00,557 DEBUG]: [Rectify]: Predecessor is now id: <10> ip: <localhost:7010> since new pred proposal is between
-[10:00,817 DEBUG]: [Finger]: Fix finger index: <0>, suc list length: <3>
-[10:01,822 DEBUG]: [Finger]: Fix finger index: <0>, suc list length: <3>
-[10:02,829 DEBUG]: [Finger]: Fix finger index: <0>, suc list length: <3>
-[10:03,832 DEBUG]: [Finger]: Fix finger index: <0>, suc list length: <3>
-[10:04,837 DEBUG]: [Finger]: Fix finger index: <0>, suc list length: <3>
-[10:05,843 DEBUG]: [Finger]: Fix finger index: <0>, suc list length: <3>
-[10:06,848 DEBUG]: [Finger]: Fix finger index: <0>, suc list length: <3>
-[10:07,854 DEBUG]: [Finger]: Fix finger index: <0>, suc list length: <3>
-[10:08,857 DEBUG]: [Finger]: Fix finger index: <0>, suc list length: <3>
+[30:47,541 DEBUG]: [Create]: Create chord ring, 1st vn id: <0>, ip: <localhost:7000>
+[30:47,541 DEBUG]: [Stabilize]: wait to be notified
+[30:47,545 DEBUG]: [receive find_suc req]: Query closest pred, id: <0>, for id: <1>
+[30:47,553 DEBUG]: [Rectify]: Predecessor is now id: <1> ip: <localhost:7001>, no pred
+[30:47,553 DEBUG]: [Stabilize]: notified
+[30:47,560 DEBUG]: [Stabilize]: Successor is now previous successors pred, successor list: <[[1, 'localhost:7001'], [-1, ''], [-1, '']]>
+[30:47,563 DEBUG]: [Finger]: started
+[30:47,564 DEBUG]: [receive find_suc req]: found successor for req id: <1>, its id: <1>
+[30:47,564 DEBUG]: [init_find_suc]: lookup id: <1>, ip: <localhost:7000>
+[30:47,565 DEBUG]: [init_find_suc]: found id: <1>, ip: <localhost:7001>
+[30:47,565 DEBUG]: [Finger]: Fix finger index: <0>, suc list length: <3>
+[30:47,572 DEBUG]: [init_find_suc]: lookup id: <2>, ip: <localhost:7001>
+[30:47,572 DEBUG]: [init_find_suc]: found id: <0>, ip: <localhost:7000>
+[30:47,572 DEBUG]: [receive find_suc req]: Query closest pred, id: <1>, for id: <2>
+[30:47,652 DEBUG]: [init_find_suc]: lookup id: <3>, ip: <localhost:7001>
+[30:47,652 DEBUG]: [init_find_suc]: found id: <0>, ip: <localhost:7000>
+[30:47,652 DEBUG]: [receive find_suc req]: Query closest pred, id: <1>, for id: <3>
+[30:47,733 DEBUG]: [init_find_suc]: lookup id: <4>, ip: <localhost:7001>
+[30:47,733 DEBUG]: [init_find_suc]: found id: <0>, ip: <localhost:7000>
+[30:47,733 DEBUG]: [receive find_suc req]: Query closest pred, id: <1>, for id: <4>
+[30:47,812 DEBUG]: [init_find_suc]: lookup id: <5>, ip: <localhost:7001>
+[30:47,812 DEBUG]: [init_find_suc]: found id: <0>, ip: <localhost:7000>
+[30:47,812 DEBUG]: [receive find_suc req]: Query closest pred, id: <1>, for id: <5>
+[30:47,887 DEBUG]: [init_find_suc]: lookup id: <6>, ip: <localhost:7001>
+[30:47,887 DEBUG]: [init_find_suc]: found id: <0>, ip: <localhost:7000>
+[30:47,887 DEBUG]: [receive find_suc req]: Query closest pred, id: <1>, for id: <6>
+[30:47,948 DEBUG]: [init_find_suc]: lookup id: <7>, ip: <localhost:7001>
+[30:47,948 DEBUG]: [init_find_suc]: found id: <0>, ip: <localhost:7000>
+[30:47,948 DEBUG]: [receive find_suc req]: Query closest pred, id: <1>, for id: <7>
+[30:48,3 DEBUG]: [init_find_suc]: lookup id: <8>, ip: <localhost:7001>
+[30:48,3 DEBUG]: [init_find_suc]: found id: <0>, ip: <localhost:7000>
+[30:48,3 DEBUG]: [receive find_suc req]: Query closest pred, id: <1>, for id: <8>
+[30:48,63 DEBUG]: [init_find_suc]: lookup id: <9>, ip: <localhost:7001>
+[30:48,64 DEBUG]: [init_find_suc]: found id: <0>, ip: <localhost:7000>
+[30:48,64 DEBUG]: [receive find_suc req]: Query closest pred, id: <1>, for id: <9>
+[30:48,117 DEBUG]: [init_find_suc]: lookup id: <10>, ip: <localhost:7001>
+[30:48,117 DEBUG]: [init_find_suc]: found id: <0>, ip: <localhost:7000>
+[30:48,117 DEBUG]: [receive find_suc req]: Query closest pred, id: <1>, for id: <10>
+[30:48,570 DEBUG]: [Finger]: started
+[30:48,572 DEBUG]: [receive find_suc req]: found successor for req id: <1>, its id: <1>
+[30:48,573 DEBUG]: [init_find_suc]: lookup id: <1>, ip: <localhost:7000>
+[30:48,573 DEBUG]: [init_find_suc]: found id: <1>, ip: <localhost:7001>
+[30:48,573 DEBUG]: [Finger]: Fix finger index: <0>, suc list length: <3>
+[30:49,576 DEBUG]: [Finger]: started
+[30:49,577 DEBUG]: [receive find_suc req]: found successor for req id: <1>, its id: <1>
+[30:49,577 DEBUG]: [init_find_suc]: lookup id: <1>, ip: <localhost:7000>
+[30:49,577 DEBUG]: [init_find_suc]: found id: <1>, ip: <localhost:7001>
+[30:49,578 DEBUG]: [Finger]: Fix finger index: <0>, suc list length: <3>
