@@ -37,7 +37,7 @@ class ServerStub(object):
     self.rectify = channel.unary_unary(
         '/server.Server/rectify',
         request_serializer=server__pb2.RectifyRequest.SerializeToString,
-        response_deserializer=server__pb2.EmptyResponse.FromString,
+        response_deserializer=server__pb2.RectifyResponse.FromString,
         )
     self.get_node_status = channel.unary_unary(
         '/server.Server/get_node_status',
@@ -154,7 +154,7 @@ def add_ServerServicer_to_server(servicer, server):
       'rectify': grpc.unary_unary_rpc_method_handler(
           servicer.rectify,
           request_deserializer=server__pb2.RectifyRequest.FromString,
-          response_serializer=server__pb2.EmptyResponse.SerializeToString,
+          response_serializer=server__pb2.RectifyResponse.SerializeToString,
       ),
       'get_node_status': grpc.unary_unary_rpc_method_handler(
           servicer.get_node_status,

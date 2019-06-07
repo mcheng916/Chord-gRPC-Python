@@ -7,7 +7,7 @@ service Server {
     rpc live_predecessor(PredecessorRequest) returns (PredecessorResponse) {}
     rpc find_succlist(FindSucclistRequest) returns (FindSucclistResponse) {}
     rpc find_predecessor(EmptyRequest) returns (FindPredResponse) {}
-    rpc rectify(RectifyRequest) returns (EmptyResponse) {}
+    rpc rectify(RectifyRequest) returns (RectifyResponse) {}
     rpc get_node_status(EmptyRequest) returns (NodeStatus) {}
     //defined by ourselves
     rpc replicate_entries(ReplicateRequest) returns (ReplicateResponse){}
@@ -34,7 +34,8 @@ message NodeStatus {
 message EmptyRequest {
 }
 
-message EmptyResponse {
+message RectifyResponse {
+    ReturnCode ret = 1;
 }
 
 //Not needed to include inc id and ip
@@ -98,9 +99,10 @@ message GetRequest {
 }
 
 message GetResponse {
-    string response = 1;
-    int32 nodeID = 2;
-    string nodeIP = 3;
+    ReturnCode ret = 1;
+    string response = 2;
+    int32 nodeID = 3;
+    string nodeIP = 4;
 }
 
 message PutRequest {

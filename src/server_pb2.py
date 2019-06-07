@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='server',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0cserver.proto\x12\x06server\"\x94\x01\n\nNodeStatus\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ip\x18\x02 \x01(\t\x12\x0f\n\x07pred_id\x18\x03 \x01(\x05\x12\x0f\n\x07pred_ip\x18\x04 \x01(\t\x12\x12\n\nsuclist_id\x18\x05 \x03(\x05\x12\x12\n\nsuclist_ip\x18\x06 \x03(\t\x12\x11\n\tfinger_id\x18\x07 \x03(\x05\x12\x11\n\tfinger_ip\x18\x08 \x03(\t\"\x0e\n\x0c\x45mptyRequest\"\x0f\n\rEmptyResponse\"(\n\x0eRectifyRequest\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ip\x18\x02 \x01(\t\"<\n\x0e\x46indSucRequest\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0e\n\x06inc_id\x18\x02 \x01(\x05\x12\x0e\n\x06inc_ip\x18\x03 \x01(\t\")\n\x0f\x46indSucResponse\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ip\x18\x02 \x01(\t\"*\n\x10\x46indPredResponse\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ip\x18\x02 \x01(\t\"5\n\x13\x46indSucclistRequest\x12\x0e\n\x06inc_id\x18\x01 \x01(\x05\x12\x0e\n\x06inc_ip\x18\x02 \x01(\t\"8\n\x14\x46indSucclistResponse\x12\x0f\n\x07id_list\x18\x01 \x03(\x05\x12\x0f\n\x07ip_list\x18\x02 \x03(\t\" \n\x12PredecessorRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"6\n\x13PredecessorResponse\x12\x1f\n\x03ret\x18\x01 \x01(\x0e\x32\x12.server.ReturnCode\"4\n\x08LogEntry\x12\x0e\n\x06hashID\x18\x01 \x01(\x05\x12\x0b\n\x03key\x18\x02 \x01(\t\x12\x0b\n\x03val\x18\x03 \x01(\t\"5\n\x10ReplicateRequest\x12!\n\x07\x65ntries\x18\x01 \x03(\x0b\x32\x10.server.LogEntry\"4\n\x11ReplicateResponse\x12\x1f\n\x03ret\x18\x01 \x01(\x0e\x32\x12.server.ReturnCode\"\x19\n\nGetRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\"?\n\x0bGetResponse\x12\x10\n\x08response\x18\x01 \x01(\t\x12\x0e\n\x06nodeID\x18\x02 \x01(\x05\x12\x0e\n\x06nodeIP\x18\x03 \x01(\t\"(\n\nPutRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"N\n\x0bPutResponse\x12\x1f\n\x03ret\x18\x01 \x01(\x0e\x32\x12.server.ReturnCode\x12\x0e\n\x06nodeID\x18\x02 \x01(\x05\x12\x0e\n\x06nodeIP\x18\x03 \x01(\t*&\n\nReturnCode\x12\x0b\n\x07SUCCESS\x10\x00\x12\x0b\n\x07\x46\x41ILURE\x10\x01\x32\xdb\x04\n\x06Server\x12\x43\n\x0e\x66ind_successor\x12\x16.server.FindSucRequest\x1a\x17.server.FindSucResponse\"\x00\x12M\n\x10live_predecessor\x12\x1a.server.PredecessorRequest\x1a\x1b.server.PredecessorResponse\"\x00\x12L\n\rfind_succlist\x12\x1b.server.FindSucclistRequest\x1a\x1c.server.FindSucclistResponse\"\x00\x12\x44\n\x10\x66ind_predecessor\x12\x14.server.EmptyRequest\x1a\x18.server.FindPredResponse\"\x00\x12:\n\x07rectify\x12\x16.server.RectifyRequest\x1a\x15.server.EmptyResponse\"\x00\x12=\n\x0fget_node_status\x12\x14.server.EmptyRequest\x1a\x12.server.NodeStatus\"\x00\x12J\n\x11replicate_entries\x12\x18.server.ReplicateRequest\x1a\x19.server.ReplicateResponse\"\x00\x12\x30\n\x03get\x12\x12.server.GetRequest\x1a\x13.server.GetResponse\"\x00\x12\x30\n\x03put\x12\x12.server.PutRequest\x1a\x13.server.PutResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0cserver.proto\x12\x06server\"\x94\x01\n\nNodeStatus\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ip\x18\x02 \x01(\t\x12\x0f\n\x07pred_id\x18\x03 \x01(\x05\x12\x0f\n\x07pred_ip\x18\x04 \x01(\t\x12\x12\n\nsuclist_id\x18\x05 \x03(\x05\x12\x12\n\nsuclist_ip\x18\x06 \x03(\t\x12\x11\n\tfinger_id\x18\x07 \x03(\x05\x12\x11\n\tfinger_ip\x18\x08 \x03(\t\"\x0e\n\x0c\x45mptyRequest\"2\n\x0fRectifyResponse\x12\x1f\n\x03ret\x18\x01 \x01(\x0e\x32\x12.server.ReturnCode\"(\n\x0eRectifyRequest\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ip\x18\x02 \x01(\t\"<\n\x0e\x46indSucRequest\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0e\n\x06inc_id\x18\x02 \x01(\x05\x12\x0e\n\x06inc_ip\x18\x03 \x01(\t\")\n\x0f\x46indSucResponse\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ip\x18\x02 \x01(\t\"*\n\x10\x46indPredResponse\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ip\x18\x02 \x01(\t\"5\n\x13\x46indSucclistRequest\x12\x0e\n\x06inc_id\x18\x01 \x01(\x05\x12\x0e\n\x06inc_ip\x18\x02 \x01(\t\"8\n\x14\x46indSucclistResponse\x12\x0f\n\x07id_list\x18\x01 \x03(\x05\x12\x0f\n\x07ip_list\x18\x02 \x03(\t\" \n\x12PredecessorRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"6\n\x13PredecessorResponse\x12\x1f\n\x03ret\x18\x01 \x01(\x0e\x32\x12.server.ReturnCode\"4\n\x08LogEntry\x12\x0e\n\x06hashID\x18\x01 \x01(\x05\x12\x0b\n\x03key\x18\x02 \x01(\t\x12\x0b\n\x03val\x18\x03 \x01(\t\"5\n\x10ReplicateRequest\x12!\n\x07\x65ntries\x18\x01 \x03(\x0b\x32\x10.server.LogEntry\"4\n\x11ReplicateResponse\x12\x1f\n\x03ret\x18\x01 \x01(\x0e\x32\x12.server.ReturnCode\"\x19\n\nGetRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\"`\n\x0bGetResponse\x12\x1f\n\x03ret\x18\x01 \x01(\x0e\x32\x12.server.ReturnCode\x12\x10\n\x08response\x18\x02 \x01(\t\x12\x0e\n\x06nodeID\x18\x03 \x01(\x05\x12\x0e\n\x06nodeIP\x18\x04 \x01(\t\"(\n\nPutRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"N\n\x0bPutResponse\x12\x1f\n\x03ret\x18\x01 \x01(\x0e\x32\x12.server.ReturnCode\x12\x0e\n\x06nodeID\x18\x02 \x01(\x05\x12\x0e\n\x06nodeIP\x18\x03 \x01(\t*&\n\nReturnCode\x12\x0b\n\x07SUCCESS\x10\x00\x12\x0b\n\x07\x46\x41ILURE\x10\x01\x32\xdd\x04\n\x06Server\x12\x43\n\x0e\x66ind_successor\x12\x16.server.FindSucRequest\x1a\x17.server.FindSucResponse\"\x00\x12M\n\x10live_predecessor\x12\x1a.server.PredecessorRequest\x1a\x1b.server.PredecessorResponse\"\x00\x12L\n\rfind_succlist\x12\x1b.server.FindSucclistRequest\x1a\x1c.server.FindSucclistResponse\"\x00\x12\x44\n\x10\x66ind_predecessor\x12\x14.server.EmptyRequest\x1a\x18.server.FindPredResponse\"\x00\x12<\n\x07rectify\x12\x16.server.RectifyRequest\x1a\x17.server.RectifyResponse\"\x00\x12=\n\x0fget_node_status\x12\x14.server.EmptyRequest\x1a\x12.server.NodeStatus\"\x00\x12J\n\x11replicate_entries\x12\x18.server.ReplicateRequest\x1a\x19.server.ReplicateResponse\"\x00\x12\x30\n\x03get\x12\x12.server.GetRequest\x1a\x13.server.GetResponse\"\x00\x12\x30\n\x03put\x12\x12.server.PutRequest\x1a\x13.server.PutResponse\"\x00\x62\x06proto3')
 )
 
 _RETURNCODE = _descriptor.EnumDescriptor(
@@ -40,8 +40,8 @@ _RETURNCODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=979,
-  serialized_end=1017,
+  serialized_start=1047,
+  serialized_end=1085,
 )
 _sym_db.RegisterEnumDescriptor(_RETURNCODE)
 
@@ -155,13 +155,20 @@ _EMPTYREQUEST = _descriptor.Descriptor(
 )
 
 
-_EMPTYRESPONSE = _descriptor.Descriptor(
-  name='EmptyResponse',
-  full_name='server.EmptyResponse',
+_RECTIFYRESPONSE = _descriptor.Descriptor(
+  name='RectifyResponse',
+  full_name='server.RectifyResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='ret', full_name='server.RectifyResponse.ret', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -175,7 +182,7 @@ _EMPTYRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=191,
-  serialized_end=206,
+  serialized_end=241,
 )
 
 
@@ -212,8 +219,8 @@ _RECTIFYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=208,
-  serialized_end=248,
+  serialized_start=243,
+  serialized_end=283,
 )
 
 
@@ -257,8 +264,8 @@ _FINDSUCREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=250,
-  serialized_end=310,
+  serialized_start=285,
+  serialized_end=345,
 )
 
 
@@ -295,8 +302,8 @@ _FINDSUCRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=312,
-  serialized_end=353,
+  serialized_start=347,
+  serialized_end=388,
 )
 
 
@@ -333,8 +340,8 @@ _FINDPREDRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=355,
-  serialized_end=397,
+  serialized_start=390,
+  serialized_end=432,
 )
 
 
@@ -371,8 +378,8 @@ _FINDSUCCLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=399,
-  serialized_end=452,
+  serialized_start=434,
+  serialized_end=487,
 )
 
 
@@ -409,8 +416,8 @@ _FINDSUCCLISTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=454,
-  serialized_end=510,
+  serialized_start=489,
+  serialized_end=545,
 )
 
 
@@ -440,8 +447,8 @@ _PREDECESSORREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=512,
-  serialized_end=544,
+  serialized_start=547,
+  serialized_end=579,
 )
 
 
@@ -471,8 +478,8 @@ _PREDECESSORRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=546,
-  serialized_end=600,
+  serialized_start=581,
+  serialized_end=635,
 )
 
 
@@ -516,8 +523,8 @@ _LOGENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=602,
-  serialized_end=654,
+  serialized_start=637,
+  serialized_end=689,
 )
 
 
@@ -547,8 +554,8 @@ _REPLICATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=656,
-  serialized_end=709,
+  serialized_start=691,
+  serialized_end=744,
 )
 
 
@@ -578,8 +585,8 @@ _REPLICATERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=711,
-  serialized_end=763,
+  serialized_start=746,
+  serialized_end=798,
 )
 
 
@@ -609,8 +616,8 @@ _GETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=765,
-  serialized_end=790,
+  serialized_start=800,
+  serialized_end=825,
 )
 
 
@@ -622,22 +629,29 @@ _GETRESPONSE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='response', full_name='server.GetResponse.response', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='nodeID', full_name='server.GetResponse.nodeID', index=1,
-      number=2, type=5, cpp_type=1, label=1,
+      name='ret', full_name='server.GetResponse.ret', index=0,
+      number=1, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='nodeIP', full_name='server.GetResponse.nodeIP', index=2,
-      number=3, type=9, cpp_type=9, label=1,
+      name='response', full_name='server.GetResponse.response', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='nodeID', full_name='server.GetResponse.nodeID', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='nodeIP', full_name='server.GetResponse.nodeIP', index=3,
+      number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -654,8 +668,8 @@ _GETRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=792,
-  serialized_end=855,
+  serialized_start=827,
+  serialized_end=923,
 )
 
 
@@ -692,8 +706,8 @@ _PUTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=857,
-  serialized_end=897,
+  serialized_start=925,
+  serialized_end=965,
 )
 
 
@@ -737,17 +751,19 @@ _PUTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=899,
-  serialized_end=977,
+  serialized_start=967,
+  serialized_end=1045,
 )
 
+_RECTIFYRESPONSE.fields_by_name['ret'].enum_type = _RETURNCODE
 _PREDECESSORRESPONSE.fields_by_name['ret'].enum_type = _RETURNCODE
 _REPLICATEREQUEST.fields_by_name['entries'].message_type = _LOGENTRY
 _REPLICATERESPONSE.fields_by_name['ret'].enum_type = _RETURNCODE
+_GETRESPONSE.fields_by_name['ret'].enum_type = _RETURNCODE
 _PUTRESPONSE.fields_by_name['ret'].enum_type = _RETURNCODE
 DESCRIPTOR.message_types_by_name['NodeStatus'] = _NODESTATUS
 DESCRIPTOR.message_types_by_name['EmptyRequest'] = _EMPTYREQUEST
-DESCRIPTOR.message_types_by_name['EmptyResponse'] = _EMPTYRESPONSE
+DESCRIPTOR.message_types_by_name['RectifyResponse'] = _RECTIFYRESPONSE
 DESCRIPTOR.message_types_by_name['RectifyRequest'] = _RECTIFYREQUEST
 DESCRIPTOR.message_types_by_name['FindSucRequest'] = _FINDSUCREQUEST
 DESCRIPTOR.message_types_by_name['FindSucResponse'] = _FINDSUCRESPONSE
@@ -780,12 +796,12 @@ EmptyRequest = _reflection.GeneratedProtocolMessageType('EmptyRequest', (_messag
   ))
 _sym_db.RegisterMessage(EmptyRequest)
 
-EmptyResponse = _reflection.GeneratedProtocolMessageType('EmptyResponse', (_message.Message,), dict(
-  DESCRIPTOR = _EMPTYRESPONSE,
+RectifyResponse = _reflection.GeneratedProtocolMessageType('RectifyResponse', (_message.Message,), dict(
+  DESCRIPTOR = _RECTIFYRESPONSE,
   __module__ = 'server_pb2'
-  # @@protoc_insertion_point(class_scope:server.EmptyResponse)
+  # @@protoc_insertion_point(class_scope:server.RectifyResponse)
   ))
-_sym_db.RegisterMessage(EmptyResponse)
+_sym_db.RegisterMessage(RectifyResponse)
 
 RectifyRequest = _reflection.GeneratedProtocolMessageType('RectifyRequest', (_message.Message,), dict(
   DESCRIPTOR = _RECTIFYREQUEST,
@@ -900,8 +916,8 @@ _SERVER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1020,
-  serialized_end=1623,
+  serialized_start=1088,
+  serialized_end=1693,
   methods=[
   _descriptor.MethodDescriptor(
     name='find_successor',
@@ -945,7 +961,7 @@ _SERVER = _descriptor.ServiceDescriptor(
     index=4,
     containing_service=None,
     input_type=_RECTIFYREQUEST,
-    output_type=_EMPTYRESPONSE,
+    output_type=_RECTIFYRESPONSE,
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
