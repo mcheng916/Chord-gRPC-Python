@@ -475,7 +475,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                 check_resp = stub.live_predecessor(check_request, timeout=self.GLOBAL_TIMEOUT)
                 if check_resp.ret != server_pb2.SUCCESS:
                     self.predecessor = [-1, ""]
-            except Exception as e:
+            except Exception:
                 self.predecessor = [-1, ""]
             with self.check_pred_cond:
                 self.check_pred_cond.wait(self.CHECKPRE_PERIOD / 1000.0)
@@ -497,7 +497,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                         self.stabilize_cond.notify()
                 else:
                     return
-        except Exception as e:
+        except Exception:
             pass
 
     def send_replicate_entries(self, req):
@@ -520,7 +520,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                 get_resp.response = self.state_machine[request.key]
                 get_resp.nodeID = -1
                 get_resp.nodeIP = ""
-            except KeyError as e:
+            except KeyError:
                 get_resp.ret = server_pb2.FAILURE
                 get_resp.response = "N/A"
                 get_resp.nodeID = -1
@@ -561,7 +561,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         # check_pred_th = threading.Thread(target=self.check_predecessor, args=())
         # check_pred_th.start()
 
-    def sha1(key, size):
+    def sha1(self, key, size):
         return int(hashlib.sha1(key.encode()).hexdigest(), 16) % size
 
 # def start_virtual_node(localAddr, remoteAddr):
