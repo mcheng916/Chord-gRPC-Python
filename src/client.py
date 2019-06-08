@@ -19,6 +19,14 @@ def getNodeStatus(addr):
     for i in range(len(find_resp.finger_id)):
         print(find_resp.finger_id[i], find_resp.finger_ip[i])
 
+def find_successor(addr, key):
+    find_request = server_pb2.FindSucRequest(id = key, inc_id = 0, inc_ip = "127.0.0.1:7000")
+    channel = grpc.insecure_channel(addr)
+    stub = server_pb2_grpc.ServerStub(channel)
+    find_resp = stub.find_successor(find_request)
+    print(find_resp.id)
+    print(find_resp.ip)
+
 def run(Addr):
     start = time.time()
 
