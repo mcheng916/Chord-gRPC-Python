@@ -2,12 +2,14 @@ import json
 import logging
 import os
 import threading
-import hashlib 
+import hashlib
+import pickle as pkl
 from concurrent import futures
 import time
 import server_pb2_grpc
 import server_pb2
 import grpc
+from chaosmonkey import CMServer
 from threading import Condition
 from threading import Lock
 
@@ -48,8 +50,13 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         self.stabilize_cond = Condition()
         self.successor_list_lock = Lock()
 
+        # self.disk_state_machine = "log/state_machine-%d.pkl" % self.id
         self.state_machine = {}
         self.logs = []
+        self.last_applied = 0
+
+        # chaos monkey server
+        self.cmserver = CMServer(num_server=len(addresses))
 
         # Set up Logger
         # create logger with 'chord'
@@ -172,20 +179,20 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             pass
         elif self.id == self.successor_list[0][0]:
             self.successor_list[0] = [id, ip]
-            self.logger.debug(f'[Update succ_list]: c1 <{self.successor_list}>')
+            # self.logger.debug(f'[Update succ_list]: c1 <{self.successor_list}>')
         elif self.successor_list[-1][0] == -1:
             for idx, suc in enumerate(self.successor_list):
                 if suc[0] == id:
                     break
                 elif suc[0] == -1:
                     self.successor_list[idx] = [id, ip]
-                    self.logger.debug(f'[Update succ_list]: c2 <{self.successor_list}>')
+                    # self.logger.debug(f'[Update succ_list]: c2 <{self.successor_list}>')
                     break
                 elif self.between(self.id, id, suc[0]):
                     # self.logger.debug(f'[Update succ_list]: length <{idx}> <{self.successor_list[:idx]}> '
                     #                   f'<{[[id, ip]]}> <{self.successor_list[idx+1:-1]}>')
                     self.successor_list = self.successor_list[:idx]+[[id, ip]]+self.successor_list[idx+1:-1]
-                    self.logger.debug(f'[Update succ_list]: c3 <{self.successor_list}>')
+                    # self.logger.debug(f'[Update succ_list]: c3 <{self.successor_list}>')
                     break
         elif self.between(self.id, id, self.successor_list[-1][0]):
             for idx, suc in enumerate(self.successor_list):
@@ -195,7 +202,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                     # self.logger.debug(f'[Update succ_list]: length <{idx}> <{self.successor_list[:idx]}> '
                     #                   f'<{[[id, ip]]}> <{self.successor_list[idx+1:-1]}>')
                     self.successor_list = self.successor_list[:idx]+[[id, ip]]+self.successor_list[idx+1:-1]
-                    self.logger.debug(f'[Update succ_list]: c4 <{self.successor_list}>')
+                    # self.logger.debug(f'[Update succ_list]: c4 <{self.successor_list}>')
                     break
         self.successor_list_lock.release()
 
@@ -390,7 +397,6 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             with self.stabilize_cond:
                 # self.logger.debug(f'[Stabilize]: now wait?')
                 self.stabilize_cond.wait(self.STABLE_PERIOD / 1000.0)
-        # threading.Timer(self.STABLE_PERIOD / 1000.0, self.stabilize).start()
 
     def init_rectify(self):
         while True:
@@ -410,7 +416,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         if self.predecessor[0] == -1:
             self.predecessor = [request.id, request.ip]
             self.logger.debug(f'[Rectify]: Pred is now id: <{request.id}> ip: <{request.ip}>, no pred')
-            # TODO: wake up the threads in initial node of chord ring here???
+            # TODO: seems we should start joining the first node when it receives find successor
             # if self.id == self.successor_list[0][0]:
             #     with self.stabilize_cond:
             #         self.stabilize_cond.notify()
@@ -480,25 +486,50 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             with self.check_pred_cond:
                 self.check_pred_cond.wait(self.CHECKPRE_PERIOD / 1000.0)
 
+    def applyToStateMachine(self):
+        # TODO: maybe we can append only? maybe we need synchronization
+        while self.last_applied <= len(self.logs):
+            self.state_machine[self.logs[0]] = self.logs[1]
+        with open(self.disk_state_machine, 'wb') as f:
+            pkl.dump(self.stateMachine, f)
+        self.logger.info(f'[StateMach]: Last applied index: <{self.lastApplied}>, ')
+
     def replicate_entries(self, request, context):
-        pass
+        for row in request.entries:
+            r = [[row.key, row.val]]
+            self.logs += r
+        threading.Thread(target=self.applyToStateMachine, args=())
+        return server_pb2.ReplicateResponse(ret=server_pb2.SUCCESS)
+
+    # message LogEntry {
+    #     int32 hashID = 1;
+    # string key = 2;
+    # string val = 3;
+    # }
+    #
+    # message ReplicateRequest{
+    #     repeated LogEntry entries = 1;
+    # }
+    #
+    # message ReplicateResponse{
+    #     ReturnCode ret = 1;
+    # }
 
     def thread_send_replicate(self, id, ip, req):
         try:
-            while True:
-                # TODO: this need to be done
-                # check_request = server_pb2.ReplicateRequest
-                channel = grpc.insecure_channel(ip)
-                # grpc.channel_ready_future(channel).result()
-                stub = server_pb2_grpc.ServerStub(channel)
-                replicate_resp = stub.replicate_entries(req, timeout=self.GLOBAL_TIMEOUT)
-                if not replicate_resp.SUCCESS:
-                    with self.stabilize_cond:
-                        self.stabilize_cond.notify()
-                else:
-                    return
+            # TODO: this need to be done
+            # check_request = server_pb2.ReplicateRequest
+            channel = grpc.insecure_channel(ip)
+            # grpc.channel_ready_future(channel).result()
+            stub = server_pb2_grpc.ServerStub(channel)
+            replicate_resp = stub.replicate_entries(req, timeout=self.GLOBAL_TIMEOUT)
+            if not replicate_resp.SUCCESS:
+                with self.stabilize_cond:
+                    self.stabilize_cond.notify()
+            else:
+                return
         except Exception as e:
-            pass
+            self.logger.error(f"[Th_send_replication]: error: <{e}>")
 
     def send_replicate_entries(self, req):
         for suc in self.successor_list:
@@ -541,7 +572,12 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
             put_resp.ret = server_pb2.SUCCESS
             put_resp.nodeID = -1
             put_resp.nodeIP = ""
-
+            replicate_req = server_pb2.ReplicateRequest
+            entry = replicate_req.add()
+            entry.hashID = hash_val
+            entry.key = request.key
+            entry.val = request.val
+            self.send_replicate_entries(replicate_req)
         return put_resp
 
     def run(self):

@@ -20,11 +20,7 @@ def getNodeStatus(addr):
         print(find_resp.finger_id[i], find_resp.finger_ip[i])
 
 def run(Addr):
-
-
-
     start = time.time()
-    
 
     # TODO: Implement PUT and GET
     myKey = "1"*1024

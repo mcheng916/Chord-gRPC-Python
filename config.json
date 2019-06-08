@@ -1,1 +1,1 @@
-{"log_size": 8, "virtual_num": 5, "replication_num": 3, "successor_num": 3, "stabilize_period": 1000, "fixfinger_period": 1000, "checkpre_period": 1000}
+{"log_size": 6, "virtual_num": 5, "replication_num": 3, "successor_num": 3, "stabilize_period": 1000, "fixfinger_period": 1000, "checkpre_period": 1000}
