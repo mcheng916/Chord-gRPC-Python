@@ -5,6 +5,7 @@ import time
 import click
 import grpc
 import server_pb2_grpc
+import chaosmonkey_pb2_grpc
 import csv
 import logging
 import logging.handlers
@@ -42,6 +43,7 @@ def start_server(address, id, join, server_config_file):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=20))
     virtual_node = Virtual_node(id, address, join, server_config)
     server_pb2_grpc.add_ServerServicer_to_server(virtual_node, server)
+    chaosmonkey_pb2_grpc.add_ChaosMonkeyServicer_to_server(virtual_node.cmserver, server)
     server.add_insecure_port(address)
     server.start()
     virtual_node.run()

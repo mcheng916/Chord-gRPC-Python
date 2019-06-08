@@ -1,29 +1,143 @@
-[52:07,996 DEBUG]: [Create]: Create chord ring, 1st vn id: <0>, ip: <localhost:7000>
-[52:07,996 DEBUG]: [Stabilize]: wait to be notified
-[52:08,2 DEBUG]: [receive find_suc req]: Query closest pred, id: <0>, for id: <12>
-[52:08,3 DEBUG]: [receive find_suc req]: Query closest pred, id: <0>, for id: <18>
-[52:08,3 DEBUG]: [receive find_suc req]: Query closest pred, id: <0>, for id: <6>
-[52:08,18 DEBUG]: [Rectify]: Predecessor is now id: <12> ip: <localhost:7002>, no pred
-[52:08,19 DEBUG]: [Stabilize]: notified
-[52:08,25 DEBUG]: [Rectify]: Predecessor is now id: <18> ip: <localhost:7003>, between
-[52:08,29 DEBUG]: [Stabilize]: Successor list might be the same: <[[0, 'localhost:7000'], [-1, ''], [-1, '']]>
-[52:08,34 DEBUG]: [Finger]: started
-[52:08,34 DEBUG]: [Finger]: fix_next: <0>, id: <1>, finger_table: <[[0, 'localhost:7000'], [-1, ''], [-1, ''], [-1, ''], [-1, ''], [-1, ''], [-1, ''], [-1, '']]>
-[52:08,52 DEBUG]: [receive find_suc req]: Query closest pred, id: <0>, for id: <24>
-[52:08,62 DEBUG]: [Rectify]: Predecessor is now id: <24> ip: <localhost:7004>, between
-[52:08,131 DEBUG]: [receive find_suc req]: Query closest pred, id: <0>, for id: <30>
-[52:08,141 DEBUG]: [Rectify]: Predecessor is now id: <30> ip: <localhost:7005>, between
-[52:08,194 DEBUG]: [receive find_suc req]: Query closest pred, id: <0>, for id: <36>
-[52:08,203 DEBUG]: [Rectify]: Predecessor is now id: <36> ip: <localhost:7006>, between
-[52:08,279 DEBUG]: [receive find_suc req]: Query closest pred, id: <0>, for id: <42>
-[52:08,289 DEBUG]: [Rectify]: Predecessor is now id: <42> ip: <localhost:7007>, between
-[52:08,335 DEBUG]: [receive find_suc req]: Query closest pred, id: <0>, for id: <48>
-[52:08,349 DEBUG]: [Rectify]: Predecessor is now id: <48> ip: <localhost:7008>, between
-[52:08,377 DEBUG]: [receive find_suc req]: Query closest pred, id: <0>, for id: <54>
-[52:08,384 DEBUG]: [Rectify]: Predecessor is now id: <54> ip: <localhost:7009>, between
-[52:08,435 DEBUG]: [receive find_suc req]: Query closest pred, id: <0>, for id: <60>
-[52:08,442 DEBUG]: [Rectify]: Predecessor is now id: <60> ip: <localhost:7010>, between
-[52:09,36 DEBUG]: [Finger]: fix_next: <1>, id: <2>, finger_table: <[[0, 'localhost:7000'], [0, 'localhost:7000'], [-1, ''], [-1, ''], [-1, ''], [-1, ''], [-1, ''], [-1, '']]>
-[52:10,40 DEBUG]: [Finger]: fix_next: <2>, id: <4>, finger_table: <[[0, 'localhost:7000'], [0, 'localhost:7000'], [0, 'localhost:7000'], [-1, ''], [-1, ''], [-1, ''], [-1, ''], [-1, '']]>
-[52:11,44 DEBUG]: [Finger]: fix_next: <3>, id: <8>, finger_table: <[[0, 'localhost:7000'], [0, 'localhost:7000'], [0, 'localhost:7000'], [0, 'localhost:7000'], [-1, ''], [-1, ''], [-1, ''], [-1, '']]>
-[52:12,49 DEBUG]: [Finger]: fix_next: <4>, id: <16>, finger_table: <[[0, 'localhost:7000'], [0, 'localhost:7000'], [0, 'localhost:7000'], [0, 'localhost:7000'], [0, 'localhost:7000'], [-1, ''], [-1, ''], [-1, '']]>
+[24:04,401 DEBUG]: [Create]: Create chord ring, 1st vn id: <0>, ip: <localhost:7000>
+[24:04,401 DEBUG]: [Stabilize]: wait to be notified
+[24:04,408 DEBUG]: [Receive find_suc req]: successor for id: <24> is id: <0>
+[24:04,408 DEBUG]: [Receive find_suc req]: successor for id: <18> is id: <0>
+[24:04,408 DEBUG]: [First node]: Joining 2nd node <24>, ip: <localhost:7004>
+[24:04,409 DEBUG]: [Receive find_suc req]: successor for id: <12> is id: <0>
+[24:04,409 DEBUG]: [Receive find_suc req]: successor for id: <30> is id: <0>
+[24:04,410 DEBUG]: [Receive find_suc req]: successor for id: <6> is id: <0>
+[24:04,410 DEBUG]: [Init find suc]: query for <0>, channel <localhost:7004>, incoming id <0>, incoming ip <localhost:7000>
+[24:04,411 DEBUG]: [First node]: find_request <0> is -1???
+[24:04,415 DEBUG]: [init_find_suc]: lookup id: <-1>, found id: <24>
+[24:04,416 DEBUG]: [Join]: self id: <0> found successor id: <24> ip: <localhost:7004>
+[24:04,422 DEBUG]: [Join]: Suc list now: <[[24, 'localhost:7004'], [-1, ''], [-1, '']]>
+[24:04,424 DEBUG]: [Rectify]: request is: id <24> ip <localhost:7004>
+[24:04,424 DEBUG]: [Rectify]: Pred is now id: <24> ip: <localhost:7004>, no pred
+[24:04,424 DEBUG]: [Rectify]: request is: id <18> ip <localhost:7003>
+[24:04,428 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [-1, ''], [-1, '']]>
+[24:04,429 DEBUG]: [Finger]: started
+[24:04,429 DEBUG]: [Init find suc]: query for <1>, channel <localhost:7000>, incoming id <0>, incoming ip <localhost:7000>
+[24:04,430 DEBUG]: [Rectify]: request is: id <30> ip <localhost:7005>
+[24:04,430 DEBUG]: [Rectify]: request is: id <12> ip <localhost:7002>
+[24:04,430 DEBUG]: [Rectify]: request is: id <6> ip <localhost:7001>
+[24:04,434 DEBUG]: [Rectify]: rectified <24> with <0>
+[24:04,435 DEBUG]: [Receive find_suc req]: successor for id: <1> is id: <24>
+[24:04,436 DEBUG]: [init_find_suc]: lookup id: <1>, found id: <24>
+[24:04,436 DEBUG]: [Finger]: fix_next: <0>, id: <1>, finger_table: <[[24, 'localhost:7004'], [-1, ''], [-1, ''], [-1, ''], [-1, ''], [-1, '']]>
+[24:05,440 DEBUG]: [Init find suc]: query for <2>, channel <localhost:7000>, incoming id <0>, incoming ip <localhost:7000>
+[24:05,583 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [-1, ''], [-1, '']]>
+[24:05,813 DEBUG]: [Receive find_suc req]: successor for id: <2> is id: <24>
+[24:05,836 DEBUG]: [init_find_suc]: lookup id: <2>, found id: <24>
+[24:05,870 DEBUG]: [Rectify]: rectified <24> with <0>
+[24:05,898 DEBUG]: [Finger]: fix_next: <1>, id: <2>, finger_table: <[[24, 'localhost:7004'], [24, 'localhost:7004'], [-1, ''], [-1, ''], [-1, ''], [-1, '']]>
+[24:06,90 DEBUG]: [Rectify]: request is: id <24> ip <localhost:7004>
+[24:06,164 DEBUG]: [Rectify]: request is: id <30> ip <localhost:7005>
+[24:06,175 DEBUG]: [Rectify]: request is: id <18> ip <localhost:7003>
+[24:06,191 DEBUG]: [Rectify]: request is: id <12> ip <localhost:7002>
+[24:06,348 DEBUG]: [Rectify]: request is: id <6> ip <localhost:7001>
+[24:06,697 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [-1, ''], [-1, '']]>
+[24:06,885 DEBUG]: [Rectify]: rectified <24> with <0>
+[24:07,130 DEBUG]: [Init find suc]: query for <4>, channel <localhost:7000>, incoming id <0>, incoming ip <localhost:7000>
+[24:07,223 DEBUG]: [Rectify]: request is: id <18> ip <localhost:7003>
+[24:07,480 DEBUG]: [Rectify]: request is: id <24> ip <localhost:7004>
+[24:07,523 DEBUG]: [Rectify]: request is: id <30> ip <localhost:7005>
+[24:07,611 DEBUG]: [Receive find_suc req]: successor for id: <4> is id: <24>
+[24:07,622 DEBUG]: [Rectify]: request is: id <12> ip <localhost:7002>
+[24:07,676 DEBUG]: [init_find_suc]: lookup id: <4>, found id: <24>
+[24:07,677 DEBUG]: [Finger]: fix_next: <2>, id: <4>, finger_table: <[[24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [-1, ''], [-1, ''], [-1, '']]>
+[24:07,835 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [-1, ''], [-1, '']]>
+[24:08,404 DEBUG]: [Rectify]: rectified <24> with <0>
+[24:08,690 DEBUG]: [Init find suc]: query for <8>, channel <localhost:7000>, incoming id <0>, incoming ip <localhost:7000>
+[24:08,729 DEBUG]: [Rectify]: request is: id <18> ip <localhost:7003>
+[24:09,99 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [-1, ''], [-1, '']]>
+[24:09,656 DEBUG]: [Receive find_suc req]: successor for id: <8> is id: <24>
+[24:09,657 DEBUG]: [Rectify]: request is: id <12> ip <localhost:7002>
+[24:09,662 DEBUG]: [Rectify]: request is: id <24> ip <localhost:7004>
+[24:09,662 DEBUG]: [Rectify]: rectified <24> with <0>
+[24:09,696 DEBUG]: [Rectify]: request is: id <30> ip <localhost:7005>
+[24:09,757 DEBUG]: [init_find_suc]: lookup id: <8>, found id: <24>
+[24:10,20 DEBUG]: [Finger]: fix_next: <3>, id: <8>, finger_table: <[[24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [-1, ''], [-1, '']]>
+[24:10,461 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [-1, ''], [-1, '']]>
+[24:10,912 DEBUG]: [Rectify]: rectified <24> with <0>
+[24:10,953 DEBUG]: [Rectify]: request is: id <18> ip <localhost:7003>
+[24:11,222 DEBUG]: [Init find suc]: query for <16>, channel <localhost:7000>, incoming id <0>, incoming ip <localhost:7000>
+[24:11,616 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [30, 'localhost:7005'], [-1, '']]>
+[24:11,940 DEBUG]: [Receive find_suc req]: successor for id: <16> is id: <24>
+[24:12,40 DEBUG]: [init_find_suc]: lookup id: <16>, found id: <24>
+[24:12,40 DEBUG]: [Finger]: fix_next: <4>, id: <16>, finger_table: <[[24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [-1, '']]>
+[24:12,889 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [30, 'localhost:7005'], [-1, '']]>
+[24:13,55 DEBUG]: [Init find suc]: query for <32>, channel <localhost:7000>, incoming id <0>, incoming ip <localhost:7000>
+[24:14,57 ERROR]: [Finger]: Failed at fix_next: <5>
+error: <<_Rendezvous of RPC that terminated with:
+	status = StatusCode.DEADLINE_EXCEEDED
+	details = "Deadline Exceeded"
+	debug_error_string = "{"created":"@1559935454.056926000","description":"Error received from peer","file":"src/core/lib/surface/call.cc","file_line":1036,"grpc_message":"Deadline Exceeded","grpc_status":4}"
+>>
+[24:14,258 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [30, 'localhost:7005'], [-1, '']]>
+[24:15,106 DEBUG]: [Init find suc]: query for <32>, channel <localhost:7000>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,930 DEBUG]: [Stabilize]: succ is succ pred, succ list: <[[18, 'localhost:7003'], [24, 'localhost:7004'], [30, 'localhost:7005']]>, btw <0> <18> <18>
+[24:15,930 DEBUG]: [Init find suc]: query for <48>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,930 DEBUG]: [Init find suc]: query for <60>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <48>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <54>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <48>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <48>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <36>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <42>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <42>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <60>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <42>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <36>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <42>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <54>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <36>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <36>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <54>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <54>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,931 DEBUG]: [Init find suc]: query for <60>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,932 DEBUG]: [Init find suc]: query for <32>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,935 DEBUG]: [init_find_suc]: lookup id: <48>, found id: <24>
+[24:15,935 DEBUG]: [init_find_suc]: lookup id: <54>, found id: <24>
+[24:15,937 DEBUG]: [init_find_suc]: lookup id: <60>, found id: <24>
+[24:15,937 DEBUG]: [init_find_suc]: lookup id: <48>, found id: <24>
+[24:15,941 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <48>
+[24:15,940 DEBUG]: [init_find_suc]: lookup id: <60>, found id: <24>
+[24:15,940 DEBUG]: [init_find_suc]: lookup id: <48>, found id: <24>
+[24:15,941 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <48>
+[24:15,941 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <54>
+[24:15,941 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <60>
+[24:15,938 DEBUG]: [init_find_suc]: lookup id: <36>, found id: <24>
+[24:15,942 DEBUG]: [Init find suc]: query for <32>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
+[24:15,942 DEBUG]: [init_find_suc]: lookup id: <42>, found id: <24>
+[24:15,942 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <60>
+[24:15,943 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <48>
+[24:15,943 DEBUG]: [init_find_suc]: lookup id: <54>, found id: <24>
+[24:15,943 DEBUG]: [init_find_suc]: lookup id: <42>, found id: <24>
+[24:15,944 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <36>
+[24:15,945 DEBUG]: [init_find_suc]: lookup id: <36>, found id: <24>
+[24:15,945 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <42>
+[24:15,945 DEBUG]: [init_find_suc]: lookup id: <54>, found id: <24>
+[24:15,946 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <54>
+[24:15,946 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <42>
+[24:15,946 DEBUG]: [init_find_suc]: lookup id: <36>, found id: <24>
+[24:15,947 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <36>
+[24:15,947 DEBUG]: [init_find_suc]: lookup id: <48>, found id: <24>
+[24:15,947 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <54>
+[24:15,947 DEBUG]: [init_find_suc]: lookup id: <54>, found id: <24>
+[24:15,948 DEBUG]: [init_find_suc]: lookup id: <42>, found id: <24>
+[24:15,948 DEBUG]: [init_find_suc]: lookup id: <36>, found id: <24>
+[24:15,948 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <36>
+[24:15,949 DEBUG]: [init_find_suc]: lookup id: <42>, found id: <24>
+[24:15,949 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <48>
+[24:15,949 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <54>
+[24:15,950 DEBUG]: [init_find_suc]: lookup id: <32>, found id: <24>
+[24:15,950 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <42>
+[24:15,950 DEBUG]: [init_find_suc]: lookup id: <60>, found id: <24>
+[24:15,950 DEBUG]: [init_find_suc]: lookup id: <32>, found id: <24>
+[24:15,950 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <36>
+[24:15,951 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <42>
+[24:15,951 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <32>
+[24:15,952 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <60>
+[24:15,952 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <32>
+[24:15,953 DEBUG]: [init_find_suc]: lookup id: <32>, found id: <24>
+[24:15,953 DEBUG]: [Finger]: fix_next: <5>, id: <32>, finger_table: <[[24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004']]>
