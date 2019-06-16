@@ -1,143 +1,311 @@
-[24:04,401 DEBUG]: [Create]: Create chord ring, 1st vn id: <0>, ip: <localhost:7000>
-[24:04,401 DEBUG]: [Stabilize]: wait to be notified
-[24:04,408 DEBUG]: [Receive find_suc req]: successor for id: <24> is id: <0>
-[24:04,408 DEBUG]: [Receive find_suc req]: successor for id: <18> is id: <0>
-[24:04,408 DEBUG]: [First node]: Joining 2nd node <24>, ip: <localhost:7004>
-[24:04,409 DEBUG]: [Receive find_suc req]: successor for id: <12> is id: <0>
-[24:04,409 DEBUG]: [Receive find_suc req]: successor for id: <30> is id: <0>
-[24:04,410 DEBUG]: [Receive find_suc req]: successor for id: <6> is id: <0>
-[24:04,410 DEBUG]: [Init find suc]: query for <0>, channel <localhost:7004>, incoming id <0>, incoming ip <localhost:7000>
-[24:04,411 DEBUG]: [First node]: find_request <0> is -1???
-[24:04,415 DEBUG]: [init_find_suc]: lookup id: <-1>, found id: <24>
-[24:04,416 DEBUG]: [Join]: self id: <0> found successor id: <24> ip: <localhost:7004>
-[24:04,422 DEBUG]: [Join]: Suc list now: <[[24, 'localhost:7004'], [-1, ''], [-1, '']]>
-[24:04,424 DEBUG]: [Rectify]: request is: id <24> ip <localhost:7004>
-[24:04,424 DEBUG]: [Rectify]: Pred is now id: <24> ip: <localhost:7004>, no pred
-[24:04,424 DEBUG]: [Rectify]: request is: id <18> ip <localhost:7003>
-[24:04,428 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [-1, ''], [-1, '']]>
-[24:04,429 DEBUG]: [Finger]: started
-[24:04,429 DEBUG]: [Init find suc]: query for <1>, channel <localhost:7000>, incoming id <0>, incoming ip <localhost:7000>
-[24:04,430 DEBUG]: [Rectify]: request is: id <30> ip <localhost:7005>
-[24:04,430 DEBUG]: [Rectify]: request is: id <12> ip <localhost:7002>
-[24:04,430 DEBUG]: [Rectify]: request is: id <6> ip <localhost:7001>
-[24:04,434 DEBUG]: [Rectify]: rectified <24> with <0>
-[24:04,435 DEBUG]: [Receive find_suc req]: successor for id: <1> is id: <24>
-[24:04,436 DEBUG]: [init_find_suc]: lookup id: <1>, found id: <24>
-[24:04,436 DEBUG]: [Finger]: fix_next: <0>, id: <1>, finger_table: <[[24, 'localhost:7004'], [-1, ''], [-1, ''], [-1, ''], [-1, ''], [-1, '']]>
-[24:05,440 DEBUG]: [Init find suc]: query for <2>, channel <localhost:7000>, incoming id <0>, incoming ip <localhost:7000>
-[24:05,583 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [-1, ''], [-1, '']]>
-[24:05,813 DEBUG]: [Receive find_suc req]: successor for id: <2> is id: <24>
-[24:05,836 DEBUG]: [init_find_suc]: lookup id: <2>, found id: <24>
-[24:05,870 DEBUG]: [Rectify]: rectified <24> with <0>
-[24:05,898 DEBUG]: [Finger]: fix_next: <1>, id: <2>, finger_table: <[[24, 'localhost:7004'], [24, 'localhost:7004'], [-1, ''], [-1, ''], [-1, ''], [-1, '']]>
-[24:06,90 DEBUG]: [Rectify]: request is: id <24> ip <localhost:7004>
-[24:06,164 DEBUG]: [Rectify]: request is: id <30> ip <localhost:7005>
-[24:06,175 DEBUG]: [Rectify]: request is: id <18> ip <localhost:7003>
-[24:06,191 DEBUG]: [Rectify]: request is: id <12> ip <localhost:7002>
-[24:06,348 DEBUG]: [Rectify]: request is: id <6> ip <localhost:7001>
-[24:06,697 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [-1, ''], [-1, '']]>
-[24:06,885 DEBUG]: [Rectify]: rectified <24> with <0>
-[24:07,130 DEBUG]: [Init find suc]: query for <4>, channel <localhost:7000>, incoming id <0>, incoming ip <localhost:7000>
-[24:07,223 DEBUG]: [Rectify]: request is: id <18> ip <localhost:7003>
-[24:07,480 DEBUG]: [Rectify]: request is: id <24> ip <localhost:7004>
-[24:07,523 DEBUG]: [Rectify]: request is: id <30> ip <localhost:7005>
-[24:07,611 DEBUG]: [Receive find_suc req]: successor for id: <4> is id: <24>
-[24:07,622 DEBUG]: [Rectify]: request is: id <12> ip <localhost:7002>
-[24:07,676 DEBUG]: [init_find_suc]: lookup id: <4>, found id: <24>
-[24:07,677 DEBUG]: [Finger]: fix_next: <2>, id: <4>, finger_table: <[[24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [-1, ''], [-1, ''], [-1, '']]>
-[24:07,835 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [-1, ''], [-1, '']]>
-[24:08,404 DEBUG]: [Rectify]: rectified <24> with <0>
-[24:08,690 DEBUG]: [Init find suc]: query for <8>, channel <localhost:7000>, incoming id <0>, incoming ip <localhost:7000>
-[24:08,729 DEBUG]: [Rectify]: request is: id <18> ip <localhost:7003>
-[24:09,99 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [-1, ''], [-1, '']]>
-[24:09,656 DEBUG]: [Receive find_suc req]: successor for id: <8> is id: <24>
-[24:09,657 DEBUG]: [Rectify]: request is: id <12> ip <localhost:7002>
-[24:09,662 DEBUG]: [Rectify]: request is: id <24> ip <localhost:7004>
-[24:09,662 DEBUG]: [Rectify]: rectified <24> with <0>
-[24:09,696 DEBUG]: [Rectify]: request is: id <30> ip <localhost:7005>
-[24:09,757 DEBUG]: [init_find_suc]: lookup id: <8>, found id: <24>
-[24:10,20 DEBUG]: [Finger]: fix_next: <3>, id: <8>, finger_table: <[[24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [-1, ''], [-1, '']]>
-[24:10,461 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [-1, ''], [-1, '']]>
-[24:10,912 DEBUG]: [Rectify]: rectified <24> with <0>
-[24:10,953 DEBUG]: [Rectify]: request is: id <18> ip <localhost:7003>
-[24:11,222 DEBUG]: [Init find suc]: query for <16>, channel <localhost:7000>, incoming id <0>, incoming ip <localhost:7000>
-[24:11,616 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [30, 'localhost:7005'], [-1, '']]>
-[24:11,940 DEBUG]: [Receive find_suc req]: successor for id: <16> is id: <24>
-[24:12,40 DEBUG]: [init_find_suc]: lookup id: <16>, found id: <24>
-[24:12,40 DEBUG]: [Finger]: fix_next: <4>, id: <16>, finger_table: <[[24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [-1, '']]>
-[24:12,889 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [30, 'localhost:7005'], [-1, '']]>
-[24:13,55 DEBUG]: [Init find suc]: query for <32>, channel <localhost:7000>, incoming id <0>, incoming ip <localhost:7000>
-[24:14,57 ERROR]: [Finger]: Failed at fix_next: <5>
-error: <<_Rendezvous of RPC that terminated with:
-	status = StatusCode.DEADLINE_EXCEEDED
-	details = "Deadline Exceeded"
-	debug_error_string = "{"created":"@1559935454.056926000","description":"Error received from peer","file":"src/core/lib/surface/call.cc","file_line":1036,"grpc_message":"Deadline Exceeded","grpc_status":4}"
->>
-[24:14,258 DEBUG]: [Stabilize]: Succ_list maintains: <[[24, 'localhost:7004'], [30, 'localhost:7005'], [-1, '']]>
-[24:15,106 DEBUG]: [Init find suc]: query for <32>, channel <localhost:7000>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,930 DEBUG]: [Stabilize]: succ is succ pred, succ list: <[[18, 'localhost:7003'], [24, 'localhost:7004'], [30, 'localhost:7005']]>, btw <0> <18> <18>
-[24:15,930 DEBUG]: [Init find suc]: query for <48>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,930 DEBUG]: [Init find suc]: query for <60>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <48>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <54>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <48>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <48>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <36>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <42>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <42>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <60>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <42>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <36>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <42>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <54>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <36>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <36>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <54>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <54>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,931 DEBUG]: [Init find suc]: query for <60>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,932 DEBUG]: [Init find suc]: query for <32>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,935 DEBUG]: [init_find_suc]: lookup id: <48>, found id: <24>
-[24:15,935 DEBUG]: [init_find_suc]: lookup id: <54>, found id: <24>
-[24:15,937 DEBUG]: [init_find_suc]: lookup id: <60>, found id: <24>
-[24:15,937 DEBUG]: [init_find_suc]: lookup id: <48>, found id: <24>
-[24:15,941 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <48>
-[24:15,940 DEBUG]: [init_find_suc]: lookup id: <60>, found id: <24>
-[24:15,940 DEBUG]: [init_find_suc]: lookup id: <48>, found id: <24>
-[24:15,941 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <48>
-[24:15,941 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <54>
-[24:15,941 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <60>
-[24:15,938 DEBUG]: [init_find_suc]: lookup id: <36>, found id: <24>
-[24:15,942 DEBUG]: [Init find suc]: query for <32>, channel <localhost:7005>, incoming id <0>, incoming ip <localhost:7000>
-[24:15,942 DEBUG]: [init_find_suc]: lookup id: <42>, found id: <24>
-[24:15,942 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <60>
-[24:15,943 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <48>
-[24:15,943 DEBUG]: [init_find_suc]: lookup id: <54>, found id: <24>
-[24:15,943 DEBUG]: [init_find_suc]: lookup id: <42>, found id: <24>
-[24:15,944 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <36>
-[24:15,945 DEBUG]: [init_find_suc]: lookup id: <36>, found id: <24>
-[24:15,945 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <42>
-[24:15,945 DEBUG]: [init_find_suc]: lookup id: <54>, found id: <24>
-[24:15,946 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <54>
-[24:15,946 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <42>
-[24:15,946 DEBUG]: [init_find_suc]: lookup id: <36>, found id: <24>
-[24:15,947 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <36>
-[24:15,947 DEBUG]: [init_find_suc]: lookup id: <48>, found id: <24>
-[24:15,947 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <54>
-[24:15,947 DEBUG]: [init_find_suc]: lookup id: <54>, found id: <24>
-[24:15,948 DEBUG]: [init_find_suc]: lookup id: <42>, found id: <24>
-[24:15,948 DEBUG]: [init_find_suc]: lookup id: <36>, found id: <24>
-[24:15,948 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <36>
-[24:15,949 DEBUG]: [init_find_suc]: lookup id: <42>, found id: <24>
-[24:15,949 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <48>
-[24:15,949 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <54>
-[24:15,950 DEBUG]: [init_find_suc]: lookup id: <32>, found id: <24>
-[24:15,950 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <42>
-[24:15,950 DEBUG]: [init_find_suc]: lookup id: <60>, found id: <24>
-[24:15,950 DEBUG]: [init_find_suc]: lookup id: <32>, found id: <24>
-[24:15,950 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <36>
-[24:15,951 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <42>
-[24:15,951 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <32>
-[24:15,952 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <60>
-[24:15,952 DEBUG]: [Receive find_suc req]: Query closest pred, id: <30>, for id: <32>
-[24:15,953 DEBUG]: [init_find_suc]: lookup id: <32>, found id: <24>
-[24:15,953 DEBUG]: [Finger]: fix_next: <5>, id: <32>, finger_table: <[[24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004'], [24, 'localhost:7004']]>
+[49:51,617 DEBUG]: [Create]: Create chord ring, 1st vn id: <0>, ip: <localhost:7000>
+[49:51,617 DEBUG]: [Stabilize]: wait to be notified
+[49:51,641 DEBUG]: [First node]: Joining 2nd node <6>, ip: <localhost:7001>
+[49:51,641 DEBUG]: [First node]: find_request <0> == -1?
+[49:51,644 DEBUG]: [Join]: self id: <0> found successor id: <6> ip: <localhost:7001>
+[49:51,647 DEBUG]: [Join]: Suc list now: <[[6, 'localhost:7001'], [-1, ''], [-1, '']]>
+[49:51,648 DEBUG]: [Rectify]: Pred is now id: <6> ip: <localhost:7001>, no pred
+[49:51,651 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [-1, ''], [-1, '']]>
+[49:51,651 DEBUG]: [Finger]: started
+[49:51,653 DEBUG]: [Rectify]: rectified <6> with <0>
+[49:51,653 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [-1, ''], [-1, ''], [-1, ''], [-1, ''], [-1, '']]>
+[49:52,654 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [60, 'localhost:7010'], [-1, '']]>
+[49:52,655 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [-1, ''], [-1, ''], [-1, ''], [-1, '']]>
+[49:52,657 DEBUG]: [Rectify]: rectified <6> with <0>
+[49:53,658 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [-1, ''], [-1, ''], [-1, '']]>
+[49:53,658 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [60, 'localhost:7010'], [-1, '']]>
+[49:53,661 DEBUG]: [Rectify]: rectified <6> with <0>
+[49:54,667 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [54, 'localhost:7009'], [60, 'localhost:7010']]>
+[49:54,668 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [54, 'localhost:7009'], [-1, ''], [-1, '']]>
+[49:54,670 DEBUG]: [Rectify]: rectified <6> with <0>
+[49:55,672 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [48, 'localhost:7008'], [54, 'localhost:7009']]>
+[49:55,673 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [54, 'localhost:7009'], [48, 'localhost:7008'], [-1, '']]>
+[49:55,675 DEBUG]: [Rectify]: rectified <6> with <0>
+[49:56,675 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [42, 'localhost:7007'], [48, 'localhost:7008']]>
+[49:56,678 DEBUG]: [Rectify]: rectified <6> with <0>
+[49:56,680 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [54, 'localhost:7009'], [48, 'localhost:7008'], [42, 'localhost:7007']]>
+[49:57,682 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [36, 'localhost:7006'], [42, 'localhost:7007']]>
+[49:57,683 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [54, 'localhost:7009'], [48, 'localhost:7008'], [42, 'localhost:7007']]>
+[49:57,685 DEBUG]: [Rectify]: rectified <6> with <0>
+[49:58,689 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [54, 'localhost:7009'], [48, 'localhost:7008'], [42, 'localhost:7007']]>
+[49:58,690 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [30, 'localhost:7005'], [36, 'localhost:7006']]>
+[49:58,693 DEBUG]: [Rectify]: rectified <6> with <0>
+[49:59,695 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [54, 'localhost:7009'], [48, 'localhost:7008'], [42, 'localhost:7007']]>
+[49:59,695 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [24, 'localhost:7004'], [30, 'localhost:7005']]>
+[49:59,699 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:00,705 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [18, 'localhost:7003'], [24, 'localhost:7004']]>
+[50:00,705 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [18, 'localhost:7003'], [48, 'localhost:7008'], [42, 'localhost:7007']]>
+[50:00,709 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:01,710 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:01,713 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [18, 'localhost:7003'], [18, 'localhost:7003'], [42, 'localhost:7007']]>
+[50:01,714 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:02,718 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:02,721 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [18, 'localhost:7003'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:02,722 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:03,724 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:03,725 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [18, 'localhost:7003'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:03,728 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:04,732 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:04,733 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [18, 'localhost:7003'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:04,736 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:05,738 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:05,739 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [18, 'localhost:7003'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:05,741 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:06,745 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:06,748 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:06,749 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:07,750 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:07,753 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:07,754 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:08,757 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:08,762 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:08,764 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:09,766 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:09,770 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:09,771 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:10,772 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:10,776 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:10,777 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:11,779 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:11,781 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:11,783 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:12,786 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:12,792 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:12,792 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:13,794 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:13,798 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:13,800 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:14,799 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:14,804 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:14,807 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:15,808 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:15,812 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:15,812 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:16,815 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:16,815 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:16,819 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:17,821 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:17,823 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:17,826 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:18,830 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:18,831 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:18,833 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:19,834 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:19,836 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:19,839 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:20,839 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:20,844 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:20,845 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:21,843 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:21,847 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:21,849 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:22,850 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:22,851 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:22,854 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:23,855 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:23,855 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:23,859 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:24,862 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:24,863 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:24,866 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:25,871 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:25,873 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:25,876 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:26,879 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:26,883 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:26,885 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:27,887 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:27,888 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:27,892 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:28,898 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:28,898 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:28,903 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:29,903 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:29,904 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:29,908 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:30,913 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:30,914 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:30,917 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:31,916 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:31,919 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:31,922 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:32,923 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:32,926 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:32,930 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:33,929 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:33,932 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:33,932 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:34,935 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:34,936 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:34,939 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:35,942 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:35,942 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:35,947 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:36,949 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:36,950 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:36,953 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:37,957 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:37,960 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:37,963 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:38,964 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:38,969 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:38,969 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:39,969 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:39,974 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:39,975 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:40,974 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:40,978 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:40,979 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:41,984 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:41,985 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:41,988 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:42,993 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:42,994 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:42,997 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:43,998 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:44,2 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:44,3 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:45,2 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:45,6 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:45,11 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:46,9 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:46,13 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:46,15 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:47,12 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:47,16 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:47,20 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:48,20 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:48,26 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:48,27 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:49,28 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:49,34 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:49,35 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:50,33 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:50,40 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:50,42 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:51,37 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:51,41 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:51,50 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:52,44 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:52,49 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:52,57 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:53,49 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:53,54 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:53,64 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:54,56 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:54,60 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:54,69 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:55,64 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:55,68 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:55,79 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:56,69 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:56,73 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:56,85 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:57,76 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:57,80 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:57,95 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:58,80 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:58,85 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:58,100 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[50:59,85 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[50:59,89 DEBUG]: [Rectify]: rectified <6> with <0>
+[50:59,103 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:00,88 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:00,91 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:00,107 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:01,94 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:01,97 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:01,115 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:02,97 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:02,101 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:02,123 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:03,100 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:03,104 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:03,134 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:04,108 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:04,112 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:04,139 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:05,112 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:05,116 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:05,143 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:06,115 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:06,119 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:06,147 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:07,120 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:07,124 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:07,152 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:08,123 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:08,127 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:08,157 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:09,134 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:09,138 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:09,166 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:10,141 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:10,145 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:10,169 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:11,148 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:11,152 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:11,171 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:12,155 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:12,160 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:12,177 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:13,165 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:13,170 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:13,182 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:14,169 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:14,173 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:14,190 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:15,178 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:15,182 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:15,202 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:16,186 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:16,190 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:16,207 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:17,193 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:17,198 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:17,215 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:18,199 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:18,204 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:18,219 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:19,205 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:19,209 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:19,226 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:20,215 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:20,219 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:20,234 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:21,221 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:21,225 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:21,245 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:22,224 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:22,228 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:22,251 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:23,232 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:23,237 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:23,254 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:24,238 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:24,242 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:24,258 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:25,247 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:25,252 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:25,265 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:26,255 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:26,260 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:26,271 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:27,261 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:27,266 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:27,282 DEBUG]: [Finger]: Next id to fix: <32>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:28,266 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:28,270 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:28,287 DEBUG]: [Finger]: Next id to fix: <1>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:29,271 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:29,276 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:29,293 DEBUG]: [Finger]: Next id to fix: <2>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:30,277 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:30,281 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:30,299 DEBUG]: [Finger]: Next id to fix: <4>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:31,283 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:31,288 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:31,307 DEBUG]: [Finger]: Next id to fix: <8>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
+[51:32,290 DEBUG]: [Stabilize]: Succ_list maintains: <[[6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003']]>
+[51:32,295 DEBUG]: [Rectify]: rectified <6> with <0>
+[51:32,315 DEBUG]: [Finger]: Next id to fix: <16>, finger_table: <[[6, 'localhost:7001'], [6, 'localhost:7001'], [6, 'localhost:7001'], [12, 'localhost:7002'], [18, 'localhost:7003'], [36, 'localhost:7006']]>
