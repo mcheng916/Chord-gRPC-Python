@@ -19,6 +19,14 @@ def getNodeStatus(addr):
     for i in range(len(find_resp.finger_id)):
         print(find_resp.finger_id[i], find_resp.finger_ip[i])
 
+def find_successor(addr, key):
+    find_request = server_pb2.FindSucRequest(id = key, inc_id = 0, inc_ip = "127.0.0.1:7000")
+    channel = grpc.insecure_channel(addr)
+    stub = server_pb2_grpc.ServerStub(channel)
+    find_resp = stub.find_successor(find_request)
+    print(find_resp.id)
+    print(find_resp.ip)
+
 def run(Addr):
     start = time.time()
 
@@ -28,13 +36,13 @@ def run(Addr):
     start = time.time()
     seq_num = 1
 
-    for i in range(100):
+    for _ in range(100):
         try:
             while True:
                 channel = grpc.insecure_channel(Addr)
                 stub = server_pb2_grpc.ServerStub(channel)
                 # print("Try to put")
-                response = stub.put(server_pb2.PutRequest(key = myKey, value = myValue))
+                stub.put(server_pb2.PutRequest(key = myKey, value = myValue))
         except Exception as e:
             print(e)
         seq_num += 1
@@ -48,7 +56,7 @@ def run(Addr):
             channel = grpc.insecure_channel(Addr)
             stub = server_pb2_grpc.ServerStub(channel)
             print("Try to get")
-            response = stub.get(server_pb2.GetRequest(key = myKey))
+            stub.get(server_pb2.GetRequest(key = myKey))
     except Exception as e:
         print(e)
     print(time.time() - start)

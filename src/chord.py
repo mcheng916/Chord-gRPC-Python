@@ -57,4 +57,4 @@ def start_server(address, id, join, server_config_file):
 
 
 if __name__ == "__main__":
-    start_server()
+    start_server('127.0.0.1:7001', 0, '127.0.0.1:7000', 'server-list.csv')

@@ -416,7 +416,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                 check_resp = stub.live_predecessor(check_request, timeout=self.GLOBAL_TIMEOUT)
                 if check_resp.ret != server_pb2.SUCCESS:
                     self.predecessor = [-1, ""]
-            except Exception as e:
+            except Exception:
                 self.predecessor = [-1, ""]
             with self.check_pred_cond:
                 self.check_pred_cond.wait(self.CHECKPRE_PERIOD / 1000.0)
@@ -438,6 +438,22 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
 
     def thread_send_replicate(self, id, ip, req):
         try:
+<<<<<<< HEAD
+            while True:
+                # TODO: this need to be done
+                # check_request = server_pb2.ReplicateRequest
+                channel = grpc.insecure_channel(ip)
+                # grpc.channel_ready_future(channel).result()
+                stub = server_pb2_grpc.ServerStub(channel)
+                replicate_resp = stub.replicate_entries(req, timeout=self.GLOBAL_TIMEOUT)
+                if not replicate_resp.SUCCESS:
+                    with self.stabilize_cond:
+                        self.stabilize_cond.notify()
+                else:
+                    return
+        except Exception:
+            pass
+=======
             # TODO: this need to be done
             # check_request = server_pb2.ReplicateRequest
             channel = grpc.insecure_channel(ip)
@@ -451,6 +467,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                 return
         except Exception as e:
             self.logger.error(f"[Th_send_replication]: error: <{e}>")
+>>>>>>> 292431af1adc76c917fa7e6533fa4d9a9d96e207
 
     def send_replicate_entries(self, req):
         for suc in self.successor_list:
@@ -472,7 +489,7 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
                 get_resp.response = self.state_machine[request.key]
                 get_resp.nodeID = -1
                 get_resp.nodeIP = ""
-            except KeyError as e:
+            except KeyError:
                 get_resp.ret = server_pb2.FAILURE
                 get_resp.response = "N/A"
                 get_resp.nodeID = -1
@@ -514,6 +531,6 @@ class Virtual_node(server_pb2_grpc.ServerServicer):
         if self.local_addr != self.remote_addr:
             self.join(self.id, self.remote_addr)
 
-    def sha1(key, size):
+    def sha1(self, key, size):
         return int(hashlib.sha1(key.encode()).hexdigest(), 16) % size
 
